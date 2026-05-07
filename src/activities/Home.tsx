@@ -9,11 +9,11 @@ export default function Home({ onSelect }: Props) {
       {/* Header */}
       <header style={{ background: '#4D72FB', padding: '0 24px', height: 64, display: 'flex', alignItems: 'center', justifyContent: 'space-between', position: 'sticky', top: 0, zIndex: 100 }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-          <img src="/slice/slice5.png" alt="" style={{ width: 38, height: 38, objectFit: 'contain' }} />
+          <img src="slice/slice5.png" alt="" style={{ width: 38, height: 38, objectFit: 'contain' }} />
           <span style={{ fontSize: 20, fontWeight: 900, color: '#fff', letterSpacing: '-0.5px' }}>놀이터</span>
         </div>
         <div style={{ display: 'flex', gap: 6, opacity: 0.85 }}>
-          {['/slice/slice3.png', '/slice/slice6.png'].map((src, i) => (
+          {['slice/slice3.png', 'slice/slice6.png'].map((src, i) => (
             <img key={i} src={src} alt="" style={{ width: 30, height: 30, objectFit: 'contain', animation: `float 3s ease-in-out ${i * 400}ms infinite` }} />
           ))}
         </div>
@@ -21,7 +21,7 @@ export default function Home({ onSelect }: Props) {
 
       {/* Hero */}
       <div style={{ background: '#4D72FB', paddingBottom: 28, display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 4, paddingTop: 12 }}>
-        <img src="/slice/slice5.png" alt="파랑이" style={{ width: 110, height: 110, objectFit: 'contain', animation: 'float 3s ease-in-out infinite' }} />
+        <img src="slice/slice5.png" alt="파랑이" style={{ width: 110, height: 110, objectFit: 'contain', animation: 'float 3s ease-in-out infinite' }} />
         <p style={{ fontSize: 15, fontWeight: 700, color: 'rgba(255,255,255,0.85)', letterSpacing: '-0.2px' }}>어떤 놀이를 할까요?</p>
       </div>
 

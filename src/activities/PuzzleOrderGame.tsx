@@ -61,7 +61,7 @@ function SceneInner() {
       <rect x="170" y="135" width="14" height="12" rx="3" fill="#C8E8FF" />
 
       {/* CENTER CHARACTER — crosses all 4 quadrants */}
-      <image href="/slice/slice5.png" x="55" y="52" width="90" height="90" />
+      <image href="slice/slice5.png" x="55" y="52" width="90" height="90" />
 
       {/* Subtle cross lines to hint at quadrant borders (very faint) */}
       <line x1="100" y1="0" x2="100" y2="200" stroke="rgba(255,255,255,0.4)" strokeWidth="1.5" strokeDasharray="4 4" />
@@ -131,7 +131,7 @@ export default function PuzzleOrderGame({ onBack }: Props) {
   if (done) return (
     <Layout title="그림 맞추기" onBack={onBack}>
       <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 20, padding: '40px 24px', textAlign: 'center' }}>
-        <img src="/slice/slice9.png" alt="" style={{ width: 110, height: 110, objectFit: 'contain', animation: 'celebrate 0.6s ease infinite' }} />
+        <img src="slice/slice9.png" alt="" style={{ width: 110, height: 110, objectFit: 'contain', animation: 'celebrate 0.6s ease infinite' }} />
         <div style={{ fontSize: 26, fontWeight: 900, color: '#4D72FB' }}>🎉 완성했어요!</div>
         <div style={{ fontSize: 17, color: '#888', fontWeight: 600 }}>
           <span style={{ color: '#4D72FB', fontWeight: 900 }}>{moves}</span>번 만에 맞췄어요!

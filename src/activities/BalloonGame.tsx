@@ -120,7 +120,7 @@ export default function BalloonGame({ onBack }: Props) {
   if (done) return (
     <Layout title="풍선 터뜨리기" onBack={onBack}>
       <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 20, padding: '48px 24px', textAlign: 'center' }}>
-        <img src="/slice/slice9.png" alt="" style={{ width: 110, height: 110, objectFit: 'contain', animation: 'celebrate 0.6s ease infinite' }} />
+        <img src="slice/slice9.png" alt="" style={{ width: 110, height: 110, objectFit: 'contain', animation: 'celebrate 0.6s ease infinite' }} />
         <div style={{ fontSize: 26, fontWeight: 900, color: '#4D72FB' }}>🎉 {GOAL}개 터뜨렸어요!</div>
         <div style={{ fontSize: 16, color: '#888', fontWeight: 600 }}>
           실수 <span style={{ color: '#FF4444', fontWeight: 900 }}>{missed}</span>번

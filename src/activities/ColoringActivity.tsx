@@ -46,7 +46,7 @@ export default function ColoringActivity({ onBack }: Props) {
 
         {/* Inspiration characters */}
         <div style={{ display: 'flex', justifyContent: 'center', gap: 6 }}>
-          {['/slice/slice6.png', '/slice/slice2.png', '/slice/slice4.png'].map((src, i) => (
+          {['slice/slice6.png', 'slice/slice2.png', 'slice/slice4.png'].map((src, i) => (
             <img key={i} src={src} alt="" style={{ width: 34, height: 34, objectFit: 'contain', animation: `float 3s ease-in-out ${i * 400}ms infinite` }} />
           ))}
         </div>

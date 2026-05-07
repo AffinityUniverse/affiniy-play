@@ -31,8 +31,8 @@ function pickRound(exceptId: string | null) {
 }
 
 // Pick which character shows the color (varies per round)
-const CHARS = ['/slice/slice2.png', '/slice/slice3.png', '/slice/slice4.png',
-               '/slice/slice5.png', '/slice/slice6.png', '/slice/slice7.png']
+const CHARS = ['slice/slice2.png', 'slice/slice3.png', 'slice/slice4.png',
+               'slice/slice5.png', 'slice/slice6.png', 'slice/slice7.png']
 
 export default function ColorMatchGame({ onBack }: Props) {
   const [round, setRound]         = useState(1)
@@ -81,7 +81,7 @@ export default function ColorMatchGame({ onBack }: Props) {
     return (
       <Layout title="색깔 맞추기" onBack={onBack}>
         <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 24, padding: '48px 24px', textAlign: 'center' }}>
-          <img src="/slice/slice9.png" alt="" style={{ width: 110, height: 110, objectFit: 'contain', animation: 'celebrate 0.6s ease infinite' }} />
+          <img src="slice/slice9.png" alt="" style={{ width: 110, height: 110, objectFit: 'contain', animation: 'celebrate 0.6s ease infinite' }} />
           <div style={{ fontSize: 26, fontWeight: 900, color: '#4D72FB' }}>
             {pct >= 80 ? '🌟 훌륭해요!' : pct >= 60 ? '🎉 잘했어요!' : '😊 다시 해봐요!'}
           </div>

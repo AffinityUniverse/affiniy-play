@@ -4,14 +4,14 @@ import Layout from '../components/Layout'
 interface Props { onBack: () => void }
 
 const NOTES = [
-  { name: '도', freq: 261.63, color: '#FF4444', char: '/slice/slice2.png' },
-  { name: '레', freq: 293.66, color: '#FF8800', char: '/slice/slice3.png' },
-  { name: '미', freq: 329.63, color: '#FFD700', char: '/slice/slice4.png' },
-  { name: '파', freq: 349.23, color: '#88CC44', char: '/slice/slice5.png' },
-  { name: '솔', freq: 392.00, color: '#44AAFF', char: '/slice/slice6.png' },
-  { name: '라', freq: 440.00, color: '#4D72FB', char: '/slice/slice7.png' },
-  { name: '시', freq: 493.88, color: '#9944CC', char: '/slice/slice9.png' },
-  { name: '도♪', freq: 523.25, color: '#FF66AA', char: '/slice/slice2.png' },
+  { name: '도', freq: 261.63, color: '#FF4444', char: 'slice/slice2.png' },
+  { name: '레', freq: 293.66, color: '#FF8800', char: 'slice/slice3.png' },
+  { name: '미', freq: 329.63, color: '#FFD700', char: 'slice/slice4.png' },
+  { name: '파', freq: 349.23, color: '#88CC44', char: 'slice/slice5.png' },
+  { name: '솔', freq: 392.00, color: '#44AAFF', char: 'slice/slice6.png' },
+  { name: '라', freq: 440.00, color: '#4D72FB', char: 'slice/slice7.png' },
+  { name: '시', freq: 493.88, color: '#9944CC', char: 'slice/slice9.png' },
+  { name: '도♪', freq: 523.25, color: '#FF66AA', char: 'slice/slice2.png' },
 ]
 
 export default function MusicActivity({ onBack }: Props) {

@@ -6,12 +6,12 @@ interface Props { onBack: () => void }
 
 // 6 characters → 6 pairs → 12 cards in a 3×4 grid
 const CHARS = [
-  { id: 0, src: '/slice/slice2.png', name: '주황이' },
-  { id: 1, src: '/slice/slice3.png', name: '초록이' },
-  { id: 2, src: '/slice/slice4.png', name: '노랑이' },
-  { id: 3, src: '/slice/slice5.png', name: '파랑이' },
-  { id: 4, src: '/slice/slice6.png', name: '분홍이' },
-  { id: 5, src: '/slice/slice7.png', name: '모자언니' },
+  { id: 0, src: 'slice/slice2.png', name: '주황이' },
+  { id: 1, src: 'slice/slice3.png', name: '초록이' },
+  { id: 2, src: 'slice/slice4.png', name: '노랑이' },
+  { id: 3, src: 'slice/slice5.png', name: '파랑이' },
+  { id: 4, src: 'slice/slice6.png', name: '분홍이' },
+  { id: 5, src: 'slice/slice7.png', name: '모자언니' },
 ]
 
 interface Card {
@@ -88,7 +88,7 @@ export default function MemoryGame({ onBack }: Props) {
     return (
       <Layout title="기억력 놀이" onBack={onBack}>
         <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 24, padding: '48px 24px', textAlign: 'center' }}>
-          <img src="/slice/slice9.png" alt="" style={{ width: 110, height: 110, objectFit: 'contain', animation: 'celebrate 0.6s ease infinite' }} />
+          <img src="slice/slice9.png" alt="" style={{ width: 110, height: 110, objectFit: 'contain', animation: 'celebrate 0.6s ease infinite' }} />
           <div>
             <div style={{ fontSize: 28, fontWeight: 900, color: '#4D72FB', marginBottom: 8 }}>🎉 모두 찾았어요!</div>
             <div style={{ fontSize: 18, fontWeight: 500, color: '#888' }}>

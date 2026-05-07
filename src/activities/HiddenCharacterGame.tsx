@@ -6,11 +6,11 @@ interface Props { onBack: () => void }
 
 // Each hidden item: which slice image, position, and hitbox in the SVG (400×280)
 const ITEMS = [
-  { id: 'c2', label: '주황이',   src: '/slice/slice2.png', hx: 96,  hy: 68,  hw: 42, hh: 42, svgX: 96,  svgY: 62,  svgW: 42 },
-  { id: 'c3', label: '초록이',   src: '/slice/slice3.png', hx: 282, hy: 140, hw: 40, hh: 40, svgX: 282, svgY: 134, svgW: 40 },
-  { id: 'c4', label: '노랑이',   src: '/slice/slice4.png', hx: 148, hy: 218, hw: 40, hh: 40, svgX: 148, svgY: 212, svgW: 40 },
-  { id: 'c6', label: '분홍이',   src: '/slice/slice6.png', hx: 316, hy: 74,  hw: 40, hh: 40, svgX: 316, svgY: 68,  svgW: 40 },
-  { id: 'c7', label: '모자언니', src: '/slice/slice7.png', hx: 196, hy: 210, hw: 40, hh: 40, svgX: 196, svgY: 204, svgW: 40 },
+  { id: 'c2', label: '주황이',   src: 'slice/slice2.png', hx: 96,  hy: 68,  hw: 42, hh: 42, svgX: 96,  svgY: 62,  svgW: 42 },
+  { id: 'c3', label: '초록이',   src: 'slice/slice3.png', hx: 282, hy: 140, hw: 40, hh: 40, svgX: 282, svgY: 134, svgW: 40 },
+  { id: 'c4', label: '노랑이',   src: 'slice/slice4.png', hx: 148, hy: 218, hw: 40, hh: 40, svgX: 148, svgY: 212, svgW: 40 },
+  { id: 'c6', label: '분홍이',   src: 'slice/slice6.png', hx: 316, hy: 74,  hw: 40, hh: 40, svgX: 316, svgY: 68,  svgW: 40 },
+  { id: 'c7', label: '모자언니', src: 'slice/slice7.png', hx: 196, hy: 210, hw: 40, hh: 40, svgX: 196, svgY: 204, svgW: 40 },
 ]
 
 export default function HiddenCharacterGame({ onBack }: Props) {

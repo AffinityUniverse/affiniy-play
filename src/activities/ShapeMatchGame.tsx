@@ -13,8 +13,8 @@ const SHAPES = [
 ]
 
 const CHAR: Record<string, string> = {
-  circle: '/slice/slice5.png', square: '/slice/slice2.png',
-  triangle: '/slice/slice3.png', star: '/slice/slice4.png', heart: '/slice/slice6.png',
+  circle: 'slice/slice5.png', square: 'slice/slice2.png',
+  triangle: 'slice/slice3.png', star: 'slice/slice4.png', heart: 'slice/slice6.png',
 }
 
 function ShapeSVG({ id, color, size = 64, outline = false }: { id: string; color: string; size?: number; outline?: boolean }) {
@@ -113,7 +113,7 @@ export default function ShapeMatchGame({ onBack }: Props) {
   if (done) return (
     <Layout title="모양 맞추기" onBack={onBack}>
       <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 24, padding: '48px 24px', textAlign: 'center' }}>
-        <img src="/slice/slice9.png" alt="" style={{ width: 110, height: 110, objectFit: 'contain', animation: 'celebrate 0.6s ease infinite' }} />
+        <img src="slice/slice9.png" alt="" style={{ width: 110, height: 110, objectFit: 'contain', animation: 'celebrate 0.6s ease infinite' }} />
         <div style={{ fontSize: 26, fontWeight: 900, color: '#4D72FB' }}>🎉 모두 맞췄어요!</div>
         <div style={{ display: 'flex', gap: 10 }}>
           <Button onClick={restart}>다시 하기</Button>

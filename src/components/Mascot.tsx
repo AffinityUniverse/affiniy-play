@@ -5,7 +5,7 @@ interface Props {
 }
 
 // Uses a slice character image as the app mascot
-export default function Mascot({ size = 60, animate = false, image = '/slice/slice5.png' }: Props) {
+export default function Mascot({ size = 60, animate = false, image = 'slice/slice5.png' }: Props) {
   return (
     <img
       src={image}
