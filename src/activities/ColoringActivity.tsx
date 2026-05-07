@@ -44,13 +44,6 @@ export default function ColoringActivity({ onBack }: Props) {
     <Layout title="색칠놀이" onBack={onBack}>
       <div style={{ maxWidth: 480, margin: '0 auto', padding: '8px 14px 24px', width: '100%', display: 'flex', flexDirection: 'column', gap: 12 }}>
 
-        {/* Inspiration characters */}
-        <div style={{ display: 'flex', justifyContent: 'center', gap: 6 }}>
-          {['slice/slice6.png', 'slice/slice2.png', 'slice/slice4.png'].map((src, i) => (
-            <img key={i} src={src} alt="" style={{ width: 34, height: 34, objectFit: 'contain', animation: `float 3s ease-in-out ${i * 400}ms infinite` }} />
-          ))}
-        </div>
-
         {/* Coloring canvas — white bg, black outlines only */}
         <div style={{ background: '#fff', borderRadius: 18, overflow: 'hidden', border: '2px solid #E8ECF4', boxShadow: '0 2px 16px rgba(77,114,251,0.08)' }}>
           <svg viewBox="0 0 400 260" width="100%" style={{ display: 'block', cursor: 'crosshair' }}>

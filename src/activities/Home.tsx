@@ -17,7 +17,7 @@ export default function Home({ onSelect }: Props) {
 
       {/* Hero */}
       <div style={{ background: '#4D72FB', paddingBottom: 24, display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 16, paddingTop: 20 }}>
-        <SlotMachine compact />
+        <SlotMachine width={300} />
         <p style={{ fontSize: 15, fontWeight: 700, color: 'rgba(255,255,255,0.85)', letterSpacing: '-0.2px' }}>어떤 놀이를 할까요?</p>
       </div>
 

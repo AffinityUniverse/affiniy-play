@@ -44,44 +44,22 @@ BLACK_KEYS.forEach((k, i) => { KEY_MAP[k.key] = { type: 'black', idx: i } })
 export default function MusicActivity({ onBack }: Props) {
   const ctxRef = useRef<AudioContext | null>(null)
   const activeNodesRef = useRef<Map<string, { osc: OscillatorNode; osc2: OscillatorNode; gain: GainNode; gain2: GainNode }>>(new Map())
+  const octaveRef = useRef(0)
 
   // activeWhite / activeBlack = set of indices currently held
   const [activeWhite, setActiveWhite] = useState<Set<number>>(new Set())
   const [activeBlack, setActiveBlack] = useState<Set<number>>(new Set())
   const [history, setHistory] = useState<{ color: string; label: string }[]>([])
+  const [octave, setOctave] = useState(0)
+
+  // Keep ref in sync with state for use in callbacks
+  useEffect(() => { octaveRef.current = octave }, [octave])
 
   const getCtx = () => {
     if (!ctxRef.current) ctxRef.current = new AudioContext()
     if (ctxRef.current.state === 'suspended') ctxRef.current.resume()
     return ctxRef.current
   }
-
-  const startNote = useCallback((freq: number, nodeKey: string) => {
-    if (activeNodesRef.current.has(nodeKey)) return
-    const ctx = getCtx()
-    const now = ctx.currentTime
-
-    const osc = ctx.createOscillator()
-    osc.type = 'triangle'
-    osc.frequency.setValueAtTime(freq, now)
-
-    const gain = ctx.createGain()
-    gain.gain.setValueAtTime(0, now)
-    gain.gain.linearRampToValueAtTime(0.45, now + 0.02)
-
-    const osc2 = ctx.createOscillator()
-    osc2.type = 'sine'
-    osc2.frequency.setValueAtTime(freq * 2, now)
-    const gain2 = ctx.createGain()
-    gain2.gain.setValueAtTime(0, now)
-    gain2.gain.linearRampToValueAtTime(0.10, now + 0.01)
-
-    osc.connect(gain); gain.connect(ctx.destination)
-    osc2.connect(gain2); gain2.connect(ctx.destination)
-    osc.start(now); osc2.start(now)
-
-    activeNodesRef.current.set(nodeKey, { osc, osc2, gain, gain2 })
-  }, [])
 
   const stopNote = useCallback((nodeKey: string) => {
     const nodes = activeNodesRef.current.get(nodeKey)
@@ -98,6 +76,41 @@ export default function MusicActivity({ onBack }: Props) {
     nodes.osc.stop(now + 0.3)
     nodes.osc2.stop(now + 0.2)
     activeNodesRef.current.delete(nodeKey)
+  }, [])
+
+  const stopAllNotes = useCallback(() => {
+    const keys = Array.from(activeNodesRef.current.keys())
+    keys.forEach(k => stopNote(k))
+    setActiveWhite(new Set())
+    setActiveBlack(new Set())
+  }, [stopNote])
+
+  const startNote = useCallback((freq: number, nodeKey: string) => {
+    if (activeNodesRef.current.has(nodeKey)) return
+    const ctx = getCtx()
+    const now = ctx.currentTime
+    const actualFreq = freq * Math.pow(2, octaveRef.current)
+
+    const osc = ctx.createOscillator()
+    osc.type = 'triangle'
+    osc.frequency.setValueAtTime(actualFreq, now)
+
+    const gain = ctx.createGain()
+    gain.gain.setValueAtTime(0, now)
+    gain.gain.linearRampToValueAtTime(0.45, now + 0.02)
+
+    const osc2 = ctx.createOscillator()
+    osc2.type = 'sine'
+    osc2.frequency.setValueAtTime(actualFreq * 2, now)
+    const gain2 = ctx.createGain()
+    gain2.gain.setValueAtTime(0, now)
+    gain2.gain.linearRampToValueAtTime(0.10, now + 0.01)
+
+    osc.connect(gain); gain.connect(ctx.destination)
+    osc2.connect(gain2); gain2.connect(ctx.destination)
+    osc.start(now); osc2.start(now)
+
+    activeNodesRef.current.set(nodeKey, { osc, osc2, gain, gain2 })
   }, [])
 
   const pressWhite = useCallback((idx: number) => {
@@ -126,6 +139,12 @@ export default function MusicActivity({ onBack }: Props) {
     setActiveBlack(prev => { const s = new Set(prev); s.delete(idx); return s })
   }, [stopNote])
 
+  const resetAll = useCallback(() => {
+    stopAllNotes()
+    setHistory([])
+    setOctave(0)
+  }, [stopAllNotes])
+
   // Keyboard events
   useEffect(() => {
     const onDown = (e: KeyboardEvent) => {
@@ -153,6 +172,24 @@ export default function MusicActivity({ onBack }: Props) {
 
   const WHITE_KEY_W = 100 / 8 // percent width each white key
 
+  const ctrlBtnStyle: React.CSSProperties = {
+    background: '#fff',
+    border: '2px solid #4D72FB',
+    borderRadius: 10,
+    padding: '6px 14px',
+    fontSize: 13,
+    fontWeight: 700,
+    fontFamily: 'inherit',
+    cursor: 'pointer',
+    color: '#4D72FB',
+  }
+
+  const ctrlBtnDisabled: React.CSSProperties = {
+    ...ctrlBtnStyle,
+    opacity: 0.35,
+    cursor: 'not-allowed',
+  }
+
   return (
     <Layout title="악기 놀이" onBack={onBack}>
       <div style={{ maxWidth: 520, margin: '0 auto', padding: '8px 12px 32px', width: '100%', display: 'flex', flexDirection: 'column', gap: 12 }}>
@@ -160,6 +197,30 @@ export default function MusicActivity({ onBack }: Props) {
         <p style={{ textAlign: 'center', fontSize: 13, fontWeight: 700, color: '#aaa', margin: 0 }}>
           건반을 눌러 소리를 내봐요! 🎵
         </p>
+
+        {/* Octave + Reset controls */}
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 12 }}>
+          <button
+            disabled={octave <= -2}
+            onClick={() => { stopAllNotes(); setOctave(o => o - 1) }}
+            style={octave <= -2 ? ctrlBtnDisabled : ctrlBtnStyle}
+          >
+            ▼ 낮추기
+          </button>
+          <span style={{ fontSize: 13, fontWeight: 700, color: '#4D72FB', minWidth: 60, textAlign: 'center' }}>
+            옥타브 {octave > 0 ? '+' : ''}{octave}
+          </span>
+          <button
+            disabled={octave >= 2}
+            onClick={() => { stopAllNotes(); setOctave(o => o + 1) }}
+            style={octave >= 2 ? ctrlBtnDisabled : ctrlBtnStyle}
+          >
+            ▲ 높이기
+          </button>
+          <button onClick={resetAll} style={ctrlBtnStyle}>
+            초기화
+          </button>
+        </div>
 
         {/* History dots */}
         <div style={{ display: 'flex', justifyContent: 'center', gap: 5, minHeight: 22, flexWrap: 'wrap' }}>
