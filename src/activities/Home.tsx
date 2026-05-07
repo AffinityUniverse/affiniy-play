@@ -42,7 +42,7 @@ export default function Home({ onSelect }: Props) {
       {/* Bottom strip */}
       <div style={{ background: '#EEF3FF', padding: '12px 0', display: 'flex', justifyContent: 'center', gap: 0 }}>
         {[2,3,4,5,6,7,9].map((n, i) => (
-          <img key={n} src={`/slice/slice${n}.png`} alt="" style={{ width: 44, height: 44, objectFit: 'contain', animation: `bounce 1.6s ease-in-out ${i * 160}ms infinite` }} />
+          <img key={n} src={`slice/slice${n}.png`} alt="" style={{ width: 44, height: 44, objectFit: 'contain', animation: `bounce 1.6s ease-in-out ${i * 160}ms infinite` }} />
         ))}
       </div>
     </div>
