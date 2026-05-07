@@ -37,21 +37,20 @@ export default function ActivityCard({ activity, onSelect, delay = 0 }: Props) {
       onTouchStart={() => setHovered(true)}
       onTouchEnd={() => { setHovered(false); onSelect(activity.id) }}
     >
-      {/* Character image — fills the top square area */}
+      {/* Character image — fixed 96×96 box, uniform across all cards */}
       <div style={{
         width: '100%',
-        aspectRatio: '1',
+        height: 112,
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
-        padding: '14%',
       }}>
         <img
           src={activity.image}
           alt={activity.title}
           style={{
-            width: '100%',
-            height: '100%',
+            width: 96,
+            height: 96,
             objectFit: 'contain',
             transform: hovered ? 'scale(1.08)' : 'scale(1)',
             transition: 'transform 0.25s ease',

@@ -28,8 +28,8 @@ export default function Home({ onSelect }: Props) {
         </svg>
       </div>
 
-      {/* 3×3 grid */}
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 12, padding: '12px 16px 36px', maxWidth: 520, margin: '0 auto', width: '100%' }}>
+      {/* 4×3 grid */}
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 12, padding: '12px 20px 40px', maxWidth: 600, margin: '0 auto', width: '100%' }}>
         {activities.map((act, i) => (
           <ActivityCard key={act.id} activity={act} onSelect={id => onSelect(id as ActivityId)} delay={i * 45} />
         ))}
