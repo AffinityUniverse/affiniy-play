@@ -1,0 +1,50 @@
+import { activities, ActivityId } from '../data/activities'
+import ActivityCard from '../components/ActivityCard'
+
+interface Props { onSelect: (id: ActivityId) => void }
+
+export default function Home({ onSelect }: Props) {
+  return (
+    <div style={{ minHeight: '100vh', background: '#fff' }}>
+      {/* Header */}
+      <header style={{ background: '#4D72FB', padding: '0 24px', height: 64, display: 'flex', alignItems: 'center', justifyContent: 'space-between', position: 'sticky', top: 0, zIndex: 100 }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+          <img src="/slice/slice5.png" alt="" style={{ width: 38, height: 38, objectFit: 'contain' }} />
+          <span style={{ fontSize: 20, fontWeight: 900, color: '#fff', letterSpacing: '-0.5px' }}>놀이터</span>
+        </div>
+        <div style={{ display: 'flex', gap: 6, opacity: 0.85 }}>
+          {['/slice/slice3.png', '/slice/slice6.png'].map((src, i) => (
+            <img key={i} src={src} alt="" style={{ width: 30, height: 30, objectFit: 'contain', animation: `float 3s ease-in-out ${i * 400}ms infinite` }} />
+          ))}
+        </div>
+      </header>
+
+      {/* Hero */}
+      <div style={{ background: '#4D72FB', paddingBottom: 28, display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 4, paddingTop: 12 }}>
+        <img src="/slice/slice5.png" alt="파랑이" style={{ width: 110, height: 110, objectFit: 'contain', animation: 'float 3s ease-in-out infinite' }} />
+        <p style={{ fontSize: 15, fontWeight: 700, color: 'rgba(255,255,255,0.85)', letterSpacing: '-0.2px' }}>어떤 놀이를 할까요?</p>
+      </div>
+
+      {/* Wave */}
+      <div style={{ background: '#fff' }}>
+        <svg viewBox="0 0 480 28" width="100%" style={{ display: 'block', marginTop: -1 }}>
+          <path d="M0 28 Q120 0 240 18 Q360 36 480 8 L480 0 L0 0 Z" fill="#4D72FB" />
+        </svg>
+      </div>
+
+      {/* 3×3 grid */}
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 12, padding: '12px 16px 36px', maxWidth: 520, margin: '0 auto', width: '100%' }}>
+        {activities.map((act, i) => (
+          <ActivityCard key={act.id} activity={act} onSelect={id => onSelect(id as ActivityId)} delay={i * 45} />
+        ))}
+      </div>
+
+      {/* Bottom strip */}
+      <div style={{ background: '#EEF3FF', padding: '12px 0', display: 'flex', justifyContent: 'center', gap: 0 }}>
+        {[2,3,4,5,6,7,9].map((n, i) => (
+          <img key={n} src={`/slice/slice${n}.png`} alt="" style={{ width: 44, height: 44, objectFit: 'contain', animation: `bounce 1.6s ease-in-out ${i * 160}ms infinite` }} />
+        ))}
+      </div>
+    </div>
+  )
+}
