@@ -88,7 +88,7 @@ export default function MemoryGame({ onBack }: Props) {
     return (
       <Layout title="기억력 놀이" onBack={onBack}>
         <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 24, padding: '48px 24px', textAlign: 'center' }}>
-          <img src="slice/slice9.png" alt="" style={{ width: 110, height: 110, objectFit: 'contain', animation: 'celebrate 0.6s ease infinite' }} />
+          
           <div>
             <div style={{ fontSize: 28, fontWeight: 900, color: '#4D72FB', marginBottom: 8 }}>🎉 모두 찾았어요!</div>
             <div style={{ fontSize: 18, fontWeight: 500, color: '#888' }}>
