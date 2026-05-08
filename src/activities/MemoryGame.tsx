@@ -4,7 +4,7 @@ import Button from '../components/Button'
 
 interface Props { onBack: () => void }
 
-// 6 characters → 6 pairs → 12 cards in a 3×4 grid
+// 7 characters → 7 pairs → 14 cards in a 4-column grid
 const CHARS = [
   { id: 0, src: 'slice/slice2.png', name: '주황이' },
   { id: 1, src: 'slice/slice3.png', name: '초록이' },
@@ -12,6 +12,7 @@ const CHARS = [
   { id: 3, src: 'slice/slice5.png', name: '파랑이' },
   { id: 4, src: 'slice/slice6.png', name: '분홍이' },
   { id: 5, src: 'slice/slice7.png', name: '모자언니' },
+  { id: 6, src: 'slice/slice9.png', name: '별이' },
 ]
 
 interface Card {
@@ -113,11 +114,11 @@ export default function MemoryGame({ onBack }: Props) {
           <span>맞춘 쌍 <span style={{ color: '#4D72FB' }}>{matches}</span> / {CHARS.length}</span>
         </div>
 
-        {/* 3 × 4 grid */}
+        {/* 4 × 4 grid (14 cards) */}
         <div style={{
           display: 'grid',
-          gridTemplateColumns: 'repeat(3, 1fr)',
-          gap: 10,
+          gridTemplateColumns: 'repeat(4, 1fr)',
+          gap: 8,
         }}>
           {cards.map(card => {
             const ch = CHARS[card.charId]

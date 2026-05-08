@@ -35,7 +35,7 @@ interface Balloon {
   popping: boolean
 }
 
-const GOAL = 10
+const GOAL = 15
 
 let _uid = 0
 
@@ -76,17 +76,17 @@ export default function BalloonGame({ onBack }: Props) {
       hex: color.hex,
       x: 5 + Math.random() * 80,
       size: 52 + Math.random() * 28,
-      duration: 3800 + Math.random() * 2400,
+      duration: 2400 + Math.random() * 1600,
       popped: false,
       popping: false,
     }
-    setBalloons(prev => [...prev.slice(-19), balloon])
+    setBalloons(prev => [...prev.slice(-29), balloon])
   }, [])
 
   useEffect(() => {
     if (!running) return
     spawnBalloon()
-    const interval = setInterval(spawnBalloon, 700)
+    const interval = setInterval(spawnBalloon, 380)
     return () => clearInterval(interval)
   }, [running, spawnBalloon])
 

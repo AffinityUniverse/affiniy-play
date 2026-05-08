@@ -13,6 +13,7 @@ import NumberMemoryGame from './activities/NumberMemoryGame'
 import MinesweeperGame from './activities/MinesweeperGame'
 import BrickBreakerGame from './activities/BrickBreakerGame'
 import DinoGame from './activities/DinoGame'
+import PlaneGame from './activities/PlaneGame'
 
 export default function App() {
   const [current, setCurrent] = useState<ActivityId | null>(null)
@@ -31,5 +32,6 @@ export default function App() {
     case 'minesweeper':  return <MinesweeperGame onBack={goHome} />
     case 'brickbreaker': return <BrickBreakerGame onBack={goHome} />
     case 'dinogame':     return <DinoGame onBack={goHome} />
+    case 'planegame':   return <PlaneGame onBack={goHome} />
   }
 }

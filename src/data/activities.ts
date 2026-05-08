@@ -1,7 +1,7 @@
 export type ActivityId =
   | 'memory' | 'puzzle' | 'coloring' | 'shapematch'
   | 'hidden' | 'designquiz' | 'music' | 'balloon' | 'numbermemory'
-  | 'minesweeper' | 'brickbreaker' | 'dinogame';
+  | 'minesweeper' | 'brickbreaker' | 'dinogame' | 'planegame';
 
 export interface ActivityInfo {
   id: ActivityId;
@@ -25,4 +25,5 @@ export const activities: ActivityInfo[] = [
   { id: 'minesweeper',  title: '지뢰찾기',       tagline: '안전한 칸을 찾아요!',         image: 'slice/slice7.png', bg: '#D5E8FF', accent: '#2980B9' },
   { id: 'brickbreaker', title: '벽돌깨기',       tagline: '공으로 벽돌을 깨요!',         image: 'slice/slice2.png', bg: '#FFE9D5', accent: '#E67E22' },
   { id: 'dinogame',     title: '달리기 게임',    tagline: '장애물을 피해요!',            image: 'slice/slice5.png', bg: '#D5F5E3', accent: '#27AE60' },
+  { id: 'planegame',   title: '비행기 게임',    tagline: '벽 사이를 날아요!',           image: 'slice/slice3.png', bg: '#D5EEFF', accent: '#0099CC' },
 ];

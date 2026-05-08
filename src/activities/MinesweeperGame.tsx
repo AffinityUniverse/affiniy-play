@@ -260,8 +260,9 @@ export default function MinesweeperGame({ onBack }: Props) {
       <div style={containerStyle}>
         {/* Header bar: mine counter | face button | timer */}
         <div style={headerBarStyle}>
-          <span style={{ color: '#333', minWidth: 60 }}>
-            💣 {Math.max(0, MINES - flagCount)}
+          <span style={{ color: '#333', minWidth: 60, display: 'flex', alignItems: 'center', gap: 4 }}>
+            <img src="slice/slice9.png" alt="지뢰" style={{ width: 18, height: 18, objectFit: 'contain' }} />
+            {Math.max(0, MINES - flagCount)}
           </span>
           <button
             onClick={restart}
@@ -311,7 +312,7 @@ export default function MinesweeperGame({ onBack }: Props) {
                 boxShadow = 'none'
                 if (cell.isMine) {
                   bg = '#FF6B6B'
-                  content = <span style={{ fontSize: 14 }}>💣</span>
+                  content = <img src="slice/slice9.png" alt="지뢰" style={{ width: 18, height: 18, objectFit: 'contain' }} />
                   border = '1.5px solid #CC0000'
                 } else {
                   bg = '#FFFFFF'
