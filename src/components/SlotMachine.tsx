@@ -1,4 +1,4 @@
-import { useRef, useEffect, useState } from 'react'
+import { useRef, useEffect } from 'react'
 
 interface Props { width?: number }
 
@@ -262,9 +262,6 @@ export default function SlotMachine({ width = 340 }: Props) {
     useRef<{ vp: HTMLDivElement; strip: HTMLDivElement } | null>(null),
   ]
 
-  const [resultCard, setResultCard] = useState<{ face: FaceSym; item: ItemSym; bg: BgSym } | null>(null)
-  const [resultVisible, setResultVisible] = useState(false)
-
   const mountRef = useRef({
     spinning: false,
     posY:  [0, 0, 0] as [number, number, number],
@@ -459,7 +456,6 @@ export default function SlotMachine({ width = 340 }: Props) {
 
     function startSpin() {
       if (m.spinning) return; m.spinning = true
-      setResultVisible(false)
       const wrapper = wrapperRef.current!
       wrapper.classList.remove('shake'); void wrapper.offsetWidth; wrapper.classList.add('shake')
       wrapper.addEventListener('animationend',()=>wrapper.classList.remove('shake'),{once:true})
@@ -484,9 +480,6 @@ export default function SlotMachine({ width = 340 }: Props) {
 
             msgEl.textContent = `${face.label} · ${item.label} · ${bg.label}`
             setTimeout(()=>Sfx.jackpot(), 200)
-
-            setResultCard({ face, item, bg })
-            setTimeout(() => setResultVisible(true), 100)
           }
         })
       }
@@ -541,12 +534,6 @@ export default function SlotMachine({ width = 340 }: Props) {
   }, [])
 
   const REEL_W = Math.floor((width - 80) / 3)
-
-  // Composite card dimensions
-  const CARD_W = width
-  const CARD_H = Math.round(width * 0.88)
-  const BG_H   = Math.round(CARD_H * 0.52)  // top half: background scene
-  const CHAR_H  = CARD_H - BG_H              // bottom half: character
 
   return (
     <div style={{ position: 'relative', display: 'inline-block' }}>
@@ -627,102 +614,6 @@ export default function SlotMachine({ width = 340 }: Props) {
           </svg>
         </div>
       </div>
-
-      {/* ── 결과 카드 (조합 이미지) ── */}
-      {resultCard && (
-        <div style={{
-          marginTop: 16,
-          width: CARD_W,
-          boxSizing: 'border-box',
-          animation: resultVisible ? 'resultFadeIn 0.5s cubic-bezier(.34,1.56,.64,1) forwards' : 'none',
-          opacity: resultVisible ? 1 : 0,
-        }}>
-          <div style={{textAlign:'center',fontWeight:900,fontSize:13,color:'#4D72FB',marginBottom:10,letterSpacing:'0.5px'}}>
-            🎲 오늘의 조합
-          </div>
-
-          {/* 합성 이미지 카드 */}
-          <div style={{
-            position: 'relative',
-            width: CARD_W,
-            height: CARD_H,
-            borderRadius: 20,
-            overflow: 'hidden',
-            boxShadow: '0 8px 32px rgba(77,114,251,0.25), 0 2px 8px rgba(0,0,0,0.12)',
-            animation: resultVisible ? 'resultPop 0.5s cubic-bezier(.34,1.56,.64,1) 0.1s both' : 'none',
-          }}>
-            {/* 배경 (위쪽) */}
-            <div style={{
-              position: 'absolute', top: 0, left: 0, right: 0, height: BG_H,
-              overflow: 'hidden',
-            }}
-              dangerouslySetInnerHTML={{ __html:
-                resultCard.bg.svg.replace('<svg', `<svg width="${CARD_W}" height="${BG_H}" preserveAspectRatio="xMidYMid slice"`)
-              }}
-            />
-
-            {/* 캐릭터 (아래쪽) */}
-            <div style={{
-              position: 'absolute', bottom: 0, left: 0, right: 0, height: CHAR_H + 30,
-              background: 'linear-gradient(to bottom, transparent 0%, rgba(255,255,255,0.85) 28%, #fff 55%)',
-              display: 'flex', alignItems: 'flex-end', justifyContent: 'center',
-              paddingBottom: 12,
-            }}>
-              <img
-                src={resultCard.face.file}
-                alt={resultCard.face.label}
-                style={{
-                  height: CHAR_H * 1.1,
-                  width: 'auto',
-                  maxWidth: CARD_W * 0.7,
-                  objectFit: 'contain',
-                  display: 'block',
-                  filter: 'drop-shadow(0 4px 12px rgba(0,0,0,0.18))',
-                }}
-              />
-            </div>
-
-            {/* 소품 오버레이 — 배경과 캐릭터 경계쯤에 */}
-            <div style={{
-              position: 'absolute',
-              top: Math.round(CARD_H * resultCard.item.anchorTop),
-              left: '50%',
-              transform: 'translateX(-50%)',
-              width: Math.round(CARD_W * 0.38),
-              height: Math.round(CARD_W * 0.38),
-              pointerEvents: 'none',
-              filter: 'drop-shadow(0 3px 8px rgba(0,0,0,0.3))',
-            }}
-              dangerouslySetInnerHTML={{ __html:
-                resultCard.item.svg.replace('<svg', `<svg width="${Math.round(CARD_W*0.38)}" height="${Math.round(CARD_W*0.38)}"`)
-              }}
-            />
-
-            {/* 라벨 배지들 */}
-            <div style={{
-              position: 'absolute', bottom: 8, left: 0, right: 0,
-              display: 'flex', justifyContent: 'center', gap: 6, padding: '0 12px',
-            }}>
-              {[
-                { label: resultCard.face.label, color: '#4D72FB' },
-                { label: resultCard.item.label, color: '#E8731A' },
-                { label: resultCard.bg.label,   color: '#27AE60' },
-              ].map(({ label, color }, i) => (
-                <div key={i} style={{
-                  background: color,
-                  color: '#fff',
-                  fontSize: 11,
-                  fontWeight: 800,
-                  padding: '3px 9px',
-                  borderRadius: 20,
-                  boxShadow: '0 2px 6px rgba(0,0,0,0.2)',
-                  letterSpacing: '0.3px',
-                }}>{label}</div>
-              ))}
-            </div>
-          </div>
-        </div>
-      )}
     </div>
   )
 }
