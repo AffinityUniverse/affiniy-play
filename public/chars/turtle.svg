@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <!-- shell -->
+  <ellipse cx="50" cy="58" rx="30" ry="26" fill="#5C9E3A"/>
+  <!-- shell pattern -->
+  <ellipse cx="50" cy="58" rx="20" ry="17" fill="#4A8028"/>
+  <line x1="50" y1="41" x2="50" y2="75" stroke="#3A6018" stroke-width="1.5"/>
+  <line x1="30" y1="58" x2="70" y2="58" stroke="#3A6018" stroke-width="1.5"/>
+  <line x1="35" y1="46" x2="65" y2="70" stroke="#3A6018" stroke-width="1.2"/>
+  <line x1="35" y1="70" x2="65" y2="46" stroke="#3A6018" stroke-width="1.2"/>
+  <!-- head -->
+  <circle cx="50" cy="32" r="16" fill="#7DC85D"/>
+  <!-- eyes -->
+  <circle cx="43" cy="28" r="5" fill="white"/>
+  <circle cx="57" cy="28" r="5" fill="white"/>
+  <circle cx="43.5" cy="29" r="3.2" fill="#1A1A1A"/>
+  <circle cx="57.5" cy="29" r="3.2" fill="#1A1A1A"/>
+  <circle cx="42" cy="27.5" r="1.1" fill="white"/>
+  <circle cx="56" cy="27.5" r="1.1" fill="white"/>
+  <!-- smile -->
+  <path d="M43 37 Q50 42 57 37" stroke="#2E6E1E" stroke-width="2" fill="none" stroke-linecap="round"/>
+  <!-- neck -->
+  <rect x="44" y="44" width="12" height="10" rx="4" fill="#7DC85D"/>
+  <!-- legs -->
+  <ellipse cx="24" cy="65" rx="9" ry="6" fill="#7DC85D" transform="rotate(-25,24,65)"/>
+  <ellipse cx="76" cy="65" rx="9" ry="6" fill="#7DC85D" transform="rotate(25,76,65)"/>
+  <ellipse cx="28" cy="80" rx="9" ry="6" fill="#7DC85D" transform="rotate(15,28,80)"/>
+  <ellipse cx="72" cy="80" rx="9" ry="6" fill="#7DC85D" transform="rotate(-15,72,80)"/>
+  <!-- tail -->
+  <ellipse cx="50" cy="86" rx="5" ry="7" fill="#7DC85D"/>
+</svg>

@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <!-- hair -->
+  <ellipse cx="50" cy="28" rx="20" ry="16" fill="#1A1A1A"/>
+  <ellipse cx="50" cy="30" rx="16" ry="14" fill="#FDBCAA"/>
+  <!-- head -->
+  <ellipse cx="50" cy="38" rx="18" ry="16" fill="#FDBCAA"/>
+  <!-- eyes -->
+  <circle cx="43" cy="35" r="3.5" fill="white"/>
+  <circle cx="57" cy="35" r="3.5" fill="white"/>
+  <circle cx="43.5" cy="35.5" r="2.2" fill="#1A1A1A"/>
+  <circle cx="57.5" cy="35.5" r="2.2" fill="#1A1A1A"/>
+  <circle cx="42.5" cy="34.5" r="0.8" fill="white"/>
+  <circle cx="56.5" cy="34.5" r="0.8" fill="white"/>
+  <!-- smile -->
+  <path d="M44 42 Q50 47 56 42" stroke="#CC7755" stroke-width="1.8" fill="none" stroke-linecap="round"/>
+  <!-- collar -->
+  <path d="M36 52 L44 58 L50 55 L56 58 L64 52" fill="white" stroke="#CCC" stroke-width="1"/>
+  <!-- uniform shirt -->
+  <rect x="32" y="52" width="36" height="28" rx="6" fill="white"/>
+  <!-- tie -->
+  <polygon points="50,55 46,58 50,78 54,58" fill="#4D72FB"/>
+  <!-- buttons -->
+  <circle cx="50" cy="62" r="2" fill="#EEE"/>
+  <circle cx="50" cy="70" r="2" fill="#EEE"/>
+  <!-- pants -->
+  <rect x="34" y="76" width="14" height="18" rx="4" fill="#4A6FCC"/>
+  <rect x="52" y="76" width="14" height="18" rx="4" fill="#4A6FCC"/>
+  <!-- shoes -->
+  <ellipse cx="38" cy="95" rx="9" ry="5" fill="#3A5ACC"/>
+  <ellipse cx="62" cy="95" rx="9" ry="5" fill="#3A5ACC"/>
+  <!-- backpack -->
+  <rect x="64" y="52" width="16" height="22" rx="5" fill="#4D72FB"/>
+  <rect x="66" y="56" width="12" height="14" rx="3" fill="#3558D4"/>
+  <circle cx="72" cy="68" r="2.5" fill="#FFD700"/>
+  <!-- arms -->
+  <rect x="20" y="52" width="14" height="8" rx="4" fill="white" transform="rotate(15,20,52)"/>
+  <rect x="66" y="52" width="14" height="8" rx="4" fill="white" transform="rotate(-15,80,52)"/>
+</svg>

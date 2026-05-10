@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <!-- antlers -->
+  <path d="M36 28 Q28 14 24 8" stroke="#8B5E3C" stroke-width="4" fill="none" stroke-linecap="round"/>
+  <path d="M30 18 Q22 14 18 18" stroke="#8B5E3C" stroke-width="3" fill="none" stroke-linecap="round"/>
+  <path d="M64 28 Q72 14 76 8" stroke="#8B5E3C" stroke-width="4" fill="none" stroke-linecap="round"/>
+  <path d="M70 18 Q78 14 82 18" stroke="#8B5E3C" stroke-width="3" fill="none" stroke-linecap="round"/>
+  <!-- ears -->
+  <ellipse cx="28" cy="38" rx="10" ry="7" fill="#C68B5A" transform="rotate(-30,28,38)"/>
+  <ellipse cx="72" cy="38" rx="10" ry="7" fill="#C68B5A" transform="rotate(30,72,38)"/>
+  <ellipse cx="28" cy="38" rx="6" ry="4" fill="#FFB0A0" transform="rotate(-30,28,38)"/>
+  <ellipse cx="72" cy="38" rx="6" ry="4" fill="#FFB0A0" transform="rotate(30,72,38)"/>
+  <!-- head -->
+  <ellipse cx="50" cy="50" rx="24" ry="22" fill="#C68B5A"/>
+  <!-- face muzzle -->
+  <ellipse cx="50" cy="60" rx="14" ry="10" fill="#D4A574"/>
+  <!-- eyes -->
+  <circle cx="40" cy="47" r="6" fill="white"/>
+  <circle cx="60" cy="47" r="6" fill="white"/>
+  <circle cx="40.5" cy="48" r="4" fill="#1A1A1A"/>
+  <circle cx="60.5" cy="48" r="4" fill="#1A1A1A"/>
+  <circle cx="39" cy="46.5" r="1.4" fill="white"/>
+  <circle cx="59" cy="46.5" r="1.4" fill="white"/>
+  <!-- nose -->
+  <ellipse cx="50" cy="59" rx="5" ry="4" fill="#1A1A1A"/>
+  <!-- mouth -->
+  <path d="M46 63 Q50 67 54 63" stroke="#555" stroke-width="1.8" fill="none" stroke-linecap="round"/>
+  <!-- body -->
+  <ellipse cx="50" cy="83" rx="20" ry="13" fill="#C68B5A"/>
+</svg>

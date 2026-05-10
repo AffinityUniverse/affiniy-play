@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <!-- ears -->
+  <polygon points="26,45 20,18 42,38" fill="#E8731A"/>
+  <polygon points="74,45 80,18 58,38" fill="#E8731A"/>
+  <polygon points="28,43 22,22 40,38" fill="#FFDBB0"/>
+  <polygon points="72,43 78,22 60,38" fill="#FFDBB0"/>
+  <!-- head -->
+  <ellipse cx="50" cy="52" rx="28" ry="25" fill="#E8731A"/>
+  <!-- face white area -->
+  <ellipse cx="50" cy="60" rx="18" ry="16" fill="white"/>
+  <!-- eyes -->
+  <circle cx="38" cy="48" r="6" fill="white"/>
+  <circle cx="62" cy="48" r="6" fill="white"/>
+  <circle cx="38.5" cy="49" r="4" fill="#1A1A1A"/>
+  <circle cx="62.5" cy="49" r="4" fill="#1A1A1A"/>
+  <circle cx="37" cy="47.5" r="1.4" fill="white"/>
+  <circle cx="61" cy="47.5" r="1.4" fill="white"/>
+  <!-- nose -->
+  <ellipse cx="50" cy="60" rx="4" ry="3" fill="#1A1A1A"/>
+  <!-- mouth -->
+  <path d="M46 63 Q50 67 54 63" stroke="#555" stroke-width="1.8" fill="none" stroke-linecap="round"/>
+  <!-- body -->
+  <ellipse cx="50" cy="82" rx="20" ry="14" fill="#E8731A"/>
+  <!-- chest -->
+  <ellipse cx="50" cy="84" rx="12" ry="10" fill="white"/>
+  <!-- tail hint -->
+  <path d="M68 75 Q85 65 80 55" stroke="#E8731A" stroke-width="8" fill="none" stroke-linecap="round"/>
+  <path d="M79 52 Q84 45 78 44" stroke="white" stroke-width="5" fill="none" stroke-linecap="round"/>
+</svg>
