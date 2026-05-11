@@ -41,7 +41,7 @@ const QUESTIONS: Question[] = [
 type GameState = 'idle' | 'playing' | 'won' | 'lost'
 
 const TOTAL_LANES  = 4
-const WALL_THICK   = 100     // wider for readability
+const WALL_THICK   = 200     // wide for readability
 const SUB_W = 72
 const SUB_H = 36
 const WALL_SPEED   = 2.5
@@ -50,8 +50,9 @@ const LANE_COLORS = ['#FF8C42', '#4D72FB', '#27AE60', '#9B59B6']
 const LANE_LIGHT  = ['#FFE9D5', '#D5E8FF', '#D5F5E3', '#EDE0FF']
 
 function getSize() {
-  const w = Math.min(500, window.innerWidth - 16)
-  const h = Math.round(w * 1.18)
+  const screenW = window.innerWidth - 16
+  const w = Math.min(900, screenW * 2)   // 2x canvas width
+  const h = Math.round(Math.min(screenW, 500) * 1.18)  // height based on screen width
   return { w, h }
 }
 
@@ -245,19 +246,10 @@ export default function ShortcutQuizGame({ onBack }: Props) {
           ctx.fillText(`${lane+1}`,wall.x,gTop+21)
           // shortcut text — dark, large, centered
           ctx.fillStyle=isCorrect?LANE_COLORS[lane]:'#222'
-          ctx.font=`bold ${Math.min(Math.round(WALL_THICK*0.19),16)}px monospace`
           ctx.textAlign='center'
-          // wrap long text
           const txt=q.choices[lane]
-          if(txt.length>8){
-            const parts=txt.split('+')
-            const base=parts.slice(0,-1).join('+')
-            const key=parts[parts.length-1]
-            ctx.fillText(base+'+',wall.x,gy-4)
-            ctx.fillText(key,wall.x,gy+14)
-          } else {
-            ctx.fillText(txt,wall.x,gy+6)
-          }
+          ctx.font=`bold ${Math.min(Math.round(WALL_THICK*0.13),22)}px monospace`
+          ctx.fillText(txt,wall.x,gy+8)
         }
         // bottom wall
         const lb=laneY(TOTAL_LANES-1,ch)+gapH/2
@@ -321,24 +313,8 @@ export default function ShortcutQuizGame({ onBack }: Props) {
           </div>
         )}
 
-        {/* 4가지 보기 미리보기 */}
-        {uiState==='playing' && currentQ && (
-          <div style={{ display:'flex', gap:6, marginBottom:8, flexWrap:'wrap', justifyContent:'center' }}>
-            {currentQ.choices.map((ch, i) => (
-              <div key={i} style={{
-                background: LANE_LIGHT[i], border:`2px solid ${LANE_COLORS[i]}`,
-                borderRadius:10, padding:'4px 10px',
-                fontSize:13, fontWeight:800, color:LANE_COLORS[i],
-                fontFamily:'monospace',
-              }}>
-                <span style={{ fontSize:10, opacity:0.7 }}>{i+1}. </span>{ch}
-              </div>
-            ))}
-          </div>
-        )}
-
         {/* 캔버스 */}
-        <div style={{ borderRadius:20, overflow:'hidden', boxShadow:'0 8px 32px rgba(0,80,180,0.22)' }}>
+        <div style={{ borderRadius:20, overflow:'hidden', overflowX:'auto', boxShadow:'0 8px 32px rgba(0,80,180,0.22)', maxWidth:'100vw' }}>
           <canvas
             ref={canvasRef}
             onClick={() => { if(gameRef.current.state==='idle') initGame() }}
