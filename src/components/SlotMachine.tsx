@@ -165,6 +165,66 @@ const ITEMS: ItemSym[] = [
     </svg>`,
   },
   {
+    id: 'headphones', label: '헤드폰', anchorTop: 0.18,
+    svg: `<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+      <path d="M20,52 Q20,20 50,20 Q80,20 80,52" fill="none" stroke="#333" stroke-width="6" stroke-linecap="round"/>
+      <rect x="10" y="48" width="18" height="26" rx="9" fill="#4D72FB"/>
+      <rect x="72" y="48" width="18" height="26" rx="9" fill="#4D72FB"/>
+      <rect x="12" y="50" width="14" height="22" rx="7" fill="#7B8FFC"/>
+      <rect x="74" y="50" width="14" height="22" rx="7" fill="#7B8FFC"/>
+      <rect x="14" y="54" width="6" height="8" rx="3" fill="rgba(255,255,255,0.4)"/>
+      <rect x="76" y="54" width="6" height="8" rx="3" fill="rgba(255,255,255,0.4)"/>
+    </svg>`,
+  },
+  {
+    id: 'ribbon', label: '리본', anchorTop: 0.16,
+    svg: `<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+      <polygon points="18,28 48,50 18,72" fill="#FF5FA0"/>
+      <polygon points="82,28 52,50 82,72" fill="#FF5FA0"/>
+      <ellipse cx="50" cy="50" rx="10" ry="12" fill="#E91E8C"/>
+      <polygon points="18,28 48,50 18,72" fill="none" stroke="#C2185B" stroke-width="1.5"/>
+      <polygon points="82,28 52,50 82,72" fill="none" stroke="#C2185B" stroke-width="1.5"/>
+      <line x1="24" y1="38" x2="44" y2="50" stroke="rgba(255,255,255,0.25)" stroke-width="2"/>
+      <line x1="76" y1="38" x2="56" y2="50" stroke="rgba(255,255,255,0.25)" stroke-width="2"/>
+    </svg>`,
+  },
+  {
+    id: 'wings', label: '날개', anchorTop: 0.34,
+    svg: `<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+      <path d="M50,50 Q30,20 5,30 Q20,50 50,55" fill="#FFF9C4"/>
+      <path d="M50,50 Q70,20 95,30 Q80,50 50,55" fill="#FFF9C4"/>
+      <path d="M50,50 Q30,20 5,30 Q20,50 50,55" fill="none" stroke="#F9A825" stroke-width="2"/>
+      <path d="M50,50 Q70,20 95,30 Q80,50 50,55" fill="none" stroke="#F9A825" stroke-width="2"/>
+      <path d="M50,52 Q35,32 12,36" stroke="#F9A825" stroke-width="1.5" fill="none"/>
+      <path d="M50,52 Q65,32 88,36" stroke="#F9A825" stroke-width="1.5" fill="none"/>
+      <path d="M50,54 Q38,44 18,44" stroke="#F9A825" stroke-width="1.5" fill="none"/>
+      <path d="M50,54 Q62,44 82,44" stroke="#F9A825" stroke-width="1.5" fill="none"/>
+    </svg>`,
+  },
+  {
+    id: 'magnifier', label: '돋보기', anchorTop: 0.50,
+    svg: `<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="42" cy="42" r="26" fill="#A0DFFF"/>
+      <circle cx="42" cy="42" r="26" fill="none" stroke="#0288D1" stroke-width="6"/>
+      <circle cx="42" cy="42" r="20" fill="rgba(255,255,255,0.3)"/>
+      <circle cx="35" cy="34" rx="8" cy="34" r="8" fill="rgba(255,255,255,0.45)"/>
+      <line x1="62" y1="62" x2="88" y2="88" stroke="#01579B" stroke-width="8" stroke-linecap="round"/>
+    </svg>`,
+  },
+  {
+    id: 'camera', label: '카메라', anchorTop: 0.50,
+    svg: `<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+      <rect x="12" y="35" width="76" height="50" rx="8" fill="#424242"/>
+      <path d="M38,35 L44,22 L56,22 L62,35" fill="#424242"/>
+      <circle cx="50" cy="60" r="18" fill="#616161"/>
+      <circle cx="50" cy="60" r="14" fill="#A0DFFF"/>
+      <circle cx="50" cy="60" r="10" fill="#7BC8F5"/>
+      <circle cx="45" cy="55" r="4" fill="rgba(255,255,255,0.5)"/>
+      <circle cx="80" cy="44" r="5" fill="#FF5252"/>
+      <rect x="18" y="42" width="16" height="8" rx="3" fill="#616161"/>
+    </svg>`,
+  },
+  {
     id: 'shield', label: '방패', anchorTop: 0.42,
     svg: `<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
       <path d="M50,12 L82,26 L82,54 Q82,78 50,90 Q18,78 18,54 L18,26 Z" fill="#1565C0"/>
@@ -417,7 +477,7 @@ const BACKGROUNDS: BgSym[] = [
 ]
 
 // ─── reel defs for loop ───────────────────────────────────────────────────────
-const REEL_LABELS = ['얼굴', '소품', '배경']
+const REEL_LABELS = ['캐릭터', '소품', '배경']
 const REEL_COUNTS = [FACES.length, ITEMS.length, BACKGROUNDS.length]
 
 const CSS = `

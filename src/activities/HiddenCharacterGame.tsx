@@ -5,11 +5,11 @@ import Button from '../components/Button'
 interface Props { onBack: () => void }
 
 const ITEMS = [
-  { id: 'c2', label: '주황이',   src: 'slice/slice2.png', x: 48,  y: 78,  w: 44, hiddenOpacity: 0.22, layer: 'tree' },
-  { id: 'c3', label: '초록이',   src: 'slice/slice3.png', x: 295, y: 155, w: 44, hiddenOpacity: 0.28, layer: 'bush' },
-  { id: 'c4', label: '노랑이',   src: 'slice/slice4.png', x: 155, y: 248, w: 38, hiddenOpacity: 0.30, layer: 'ground' },
-  { id: 'c6', label: '분홍이',   src: 'slice/slice6.png', x: 265, y: 22,  w: 44, hiddenOpacity: 0.20, layer: 'cloud' },
-  { id: 'c7', label: '모자언니', src: 'slice/slice7.png', x: 332, y: 148, w: 40, hiddenOpacity: 0.25, layer: 'house' },
+  { id: 'c2', label: '주황이',   src: 'slice/slice2.png', x: 48,  y: 78,  w: 44, hiddenOpacity: 0.22, layer: 'tree',   hint: '왼쪽 위 나무 근처를 찾아봐요! 🌳' },
+  { id: 'c3', label: '초록이',   src: 'slice/slice3.png', x: 295, y: 155, w: 44, hiddenOpacity: 0.28, layer: 'bush',   hint: '오른쪽 중간 덤불 속을 찾아봐요! 🌿' },
+  { id: 'c4', label: '노랑이',   src: 'slice/slice4.png', x: 155, y: 248, w: 38, hiddenOpacity: 0.30, layer: 'ground', hint: '가운데 아래 땅 위를 찾아봐요! 🌱' },
+  { id: 'c6', label: '분홍이',   src: 'slice/slice6.png', x: 265, y: 22,  w: 44, hiddenOpacity: 0.20, layer: 'cloud',  hint: '오른쪽 위 구름 근처를 찾아봐요! ☁️' },
+  { id: 'c7', label: '모자언니', src: 'slice/slice7.png', x: 332, y: 148, w: 40, hiddenOpacity: 0.25, layer: 'house',  hint: '오른쪽 집 옆을 찾아봐요! 🏠' },
 ]
 
 export default function HiddenCharacterGame({ onBack }: Props) {
@@ -30,8 +30,8 @@ export default function HiddenCharacterGame({ onBack }: Props) {
     const unfound = ITEMS.filter(i => !found.has(i.id))
     if (!unfound.length) return
     const pick = unfound[Math.floor(Math.random() * unfound.length)]
-    setHint(`"${pick.label}"을 찾아봐요!`)
-    setTimeout(() => setHint(null), 2200)
+    setHint(pick.hint)
+    setTimeout(() => setHint(null), 3000)
   }
 
   const restart = () => { setFound(new Set()); setHint(null); setFlashId(null) }

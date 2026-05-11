@@ -279,7 +279,7 @@ export default function MinesweeperGame({ onBack }: Props) {
         {/* 상태바 */}
         <div style={{ display:'flex', alignItems:'center', justifyContent:'space-between', background:'#EEF3FF', borderRadius:12, padding:'10px 16px', marginBottom:12, fontWeight:800, fontSize:15 }}>
           <span style={{ color:'#333', display:'flex', alignItems:'center', gap:6 }}>
-            <img src="chars/bear.png" alt="지뢰" style={{ width:20, height:20, objectFit:'contain', borderRadius:4 }} />
+            <img src="chars/fox.png" alt="지뢰" style={{ width:20, height:20, objectFit:'contain', borderRadius:4 }} />
             {Math.max(0, cfg.mines - flagCount)}
           </span>
           <button
@@ -321,7 +321,7 @@ export default function MinesweeperGame({ onBack }: Props) {
                   boxShadow = 'none'
                   if (cell.isMine) {
                     bg = '#FF6B6B'; border = '1.5px solid #CC0000'
-                    content = <span style={{ fontSize: Math.max(cellPx * 0.55, 10) }}>💣</span>
+                    content = <img src="chars/fox.png" alt="지뢰" style={{ width: Math.max(cellPx * 0.75, 12), height: Math.max(cellPx * 0.75, 12), objectFit: 'contain', display: 'block' }} />
                   } else {
                     bg = '#FFFFFF'; border = '1.5px solid #D0D8FF'
                     if (cell.adjacent > 0)
