@@ -52,7 +52,7 @@ const LANE_LIGHT  = ['#FFE9D5', '#D5E8FF', '#D5F5E3', '#EDE0FF']
 function getSize() {
   const screenW = window.innerWidth - 16
   const w = Math.min(900, screenW * 2)   // 2x canvas width
-  const h = Math.round(Math.min(screenW, 500) * 1.18)  // height based on screen width
+  const h = Math.round(window.innerHeight * 0.72)       // tall: lanes get lots of vertical space
   return { w, h }
 }
 
@@ -130,6 +130,7 @@ export default function ShortcutQuizGame({ onBack }: Props) {
     walls: [] as WallObj[], score: 0, lives: 3, frameCount: 0, rafId: 0,
     bubbles: [] as Bubble[], qOrder: [] as number[], qPointer: 0,
     particles: [] as Particle[], flashTimer: 0, flashLane: -1, flashCorrect: false,
+    spawnAfter: -1,   // frame number to spawn next wall after a pass
   })
 
   const shuffleQ = useCallback(() => {
@@ -142,7 +143,7 @@ export default function ShortcutQuizGame({ onBack }: Props) {
     const g = gameRef.current; const { h } = sizeRef.current
     g.state='playing'; g.currentLane=0; g.subY=laneY(0,h); g.targetY=laneY(0,h)
     g.walls=[]; g.score=0; g.lives=3; g.frameCount=0; g.particles=[]
-    g.flashTimer=0; g.flashLane=-1; g.qOrder=shuffleQ(); g.qPointer=0
+    g.flashTimer=0; g.flashLane=-1; g.qOrder=shuffleQ(); g.qPointer=0; g.spawnAfter=-1
     g.bubbles=Array.from({length:18},()=>({
       x:Math.random()*sizeRef.current.w, y:Math.random()*h,
       r:2+Math.random()*5, speed:0.25+Math.random()*0.5, alpha:0.07+Math.random()*0.13,
@@ -202,7 +203,9 @@ export default function ShortcutQuizGame({ onBack }: Props) {
 
       if(g.state==='playing'){
         g.subY+=(g.targetY-g.subY)*0.14
-        if(g.frameCount%185===0||(g.walls.length===0&&g.frameCount>40)) spawnWall()
+        // spawn first wall or scheduled respawn after pass
+        if(g.walls.length===0&&g.frameCount>30) spawnWall()
+        else if(g.spawnAfter>=0&&g.frameCount>=g.spawnAfter){g.spawnAfter=-1;spawnWall()}
         for(const w of g.walls) w.x-=WALL_SPEED
         const sl=82, sr=82+SUB_W, st=g.subY-SUB_H/2, sb=g.subY+SUB_H/2
         for(const wall of g.walls){
@@ -215,6 +218,7 @@ export default function ShortcutQuizGame({ onBack }: Props) {
             if(st>=gy-gapH/2+6&&sb<=gy+gapH/2-6){inGap=true;hitLane=lane;break}
           }
           wall.passed=true; g.flashLane=hitLane; g.flashTimer=55
+          g.spawnAfter=g.frameCount+50   // next wall ~50 frames after passing
           if(inGap){g.flashCorrect=hitLane===q.answer;spawnParticles(wall.x,g.subY,g.flashCorrect);if(g.flashCorrect){g.score+=10;setScore(g.score);playSuccess()}else{g.lives-=1;setLives(g.lives);playError();if(g.lives<=0){g.state='lost';setUiState('lost')}}}
           else{g.flashCorrect=false;spawnParticles(wall.x,g.subY,false);g.lives-=1;setLives(g.lives);playError();if(g.lives<=0){g.state='lost';setUiState('lost')}}
         }
