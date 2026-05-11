@@ -16,140 +16,7 @@ const BALL_RADIUS = 8
 const BASE_SPEED = 4
 const SPEED_INCREMENT = 0.2
 
-// Mosaic character: a large student character SVG drawn on an offscreen canvas
-// We'll draw the character image across the brick grid — each brick shows a portion
-const MOSAIC_CHARS = [
-  {
-    name: '파랑이',
-    draw(ctx: CanvasRenderingContext2D, w: number, h: number) {
-      // Background gradient
-      const bg = ctx.createLinearGradient(0, 0, w, h)
-      bg.addColorStop(0, '#4D72FB')
-      bg.addColorStop(1, '#2244CC')
-      ctx.fillStyle = bg; ctx.fillRect(0, 0, w, h)
-
-      const cx = w / 2, cy = h * 0.48, r = Math.min(w, h) * 0.34
-
-      // Body (oval)
-      ctx.fillStyle = '#4D72FB'
-      ctx.beginPath(); ctx.ellipse(cx, cy + r * 0.55, r * 0.8, r * 0.6, 0, 0, Math.PI * 2); ctx.fill()
-
-      // Head
-      ctx.fillStyle = '#A0BFFF'
-      ctx.beginPath(); ctx.arc(cx, cy, r, 0, Math.PI * 2); ctx.fill()
-
-      // Ears
-      ctx.fillStyle = '#A0BFFF'
-      ctx.beginPath(); ctx.ellipse(cx - r * 0.85, cy - r * 0.2, r * 0.18, r * 0.28, -0.3, 0, Math.PI * 2); ctx.fill()
-      ctx.beginPath(); ctx.ellipse(cx + r * 0.85, cy - r * 0.2, r * 0.18, r * 0.28, 0.3, 0, Math.PI * 2); ctx.fill()
-      // Inner ears
-      ctx.fillStyle = '#80A0FF'
-      ctx.beginPath(); ctx.ellipse(cx - r * 0.85, cy - r * 0.2, r * 0.1, r * 0.17, -0.3, 0, Math.PI * 2); ctx.fill()
-      ctx.beginPath(); ctx.ellipse(cx + r * 0.85, cy - r * 0.2, r * 0.1, r * 0.17, 0.3, 0, Math.PI * 2); ctx.fill()
-
-      // Eyes
-      ctx.fillStyle = 'white'
-      ctx.beginPath(); ctx.ellipse(cx - r*0.32, cy - r*0.1, r*0.18, r*0.2, 0, 0, Math.PI*2); ctx.fill()
-      ctx.beginPath(); ctx.ellipse(cx + r*0.32, cy - r*0.1, r*0.18, r*0.2, 0, 0, Math.PI*2); ctx.fill()
-      ctx.fillStyle = '#1A1A1A'
-      ctx.beginPath(); ctx.arc(cx - r*0.3, cy - r*0.08, r*0.12, 0, Math.PI*2); ctx.fill()
-      ctx.beginPath(); ctx.arc(cx + r*0.3, cy - r*0.08, r*0.12, 0, Math.PI*2); ctx.fill()
-      ctx.fillStyle = 'white'
-      ctx.beginPath(); ctx.arc(cx - r*0.34, cy - r*0.12, r*0.045, 0, Math.PI*2); ctx.fill()
-      ctx.beginPath(); ctx.arc(cx + r*0.26, cy - r*0.12, r*0.045, 0, Math.PI*2); ctx.fill()
-
-      // Smile
-      ctx.strokeStyle = '#2244CC'; ctx.lineWidth = r * 0.07; ctx.lineCap = 'round'
-      ctx.beginPath()
-      ctx.moveTo(cx - r*0.28, cy + r*0.18)
-      ctx.quadraticCurveTo(cx, cy + r*0.38, cx + r*0.28, cy + r*0.18)
-      ctx.stroke()
-
-      // Cheeks
-      ctx.fillStyle = 'rgba(255,150,150,0.35)'
-      ctx.beginPath(); ctx.ellipse(cx - r*0.55, cy + r*0.1, r*0.18, r*0.12, 0, 0, Math.PI*2); ctx.fill()
-      ctx.beginPath(); ctx.ellipse(cx + r*0.55, cy + r*0.1, r*0.18, r*0.12, 0, 0, Math.PI*2); ctx.fill()
-
-      // Arms
-      ctx.fillStyle = '#A0BFFF'
-      ctx.beginPath(); ctx.ellipse(cx - r*0.95, cy + r*0.55, r*0.15, r*0.3, 0.3, 0, Math.PI*2); ctx.fill()
-      ctx.beginPath(); ctx.ellipse(cx + r*0.95, cy + r*0.55, r*0.15, r*0.3, -0.3, 0, Math.PI*2); ctx.fill()
-
-      // Star accessory
-      ctx.fillStyle = '#FFD700'
-      const sr = r * 0.12, sx = cx + r * 0.6, sy = cy - r * 0.6
-      for (let i = 0; i < 5; i++) {
-        const a = (i * 4 * Math.PI / 5) - Math.PI / 2
-        const ai = (i * 4 * Math.PI / 5) + Math.PI / 10 - Math.PI / 2
-        ctx.beginPath()
-        ctx.moveTo(sx + Math.cos(a) * sr, sy + Math.sin(a) * sr)
-        ctx.lineTo(sx + Math.cos(ai) * sr * 0.4, sy + Math.sin(ai) * sr * 0.4)
-        if (i === 0) ctx.moveTo(sx + Math.cos(a) * sr, sy + Math.sin(a) * sr)
-      }
-      // simple star
-      ctx.beginPath()
-      for (let i = 0; i < 10; i++) {
-        const a = (i * Math.PI / 5) - Math.PI / 2
-        const rd = i % 2 === 0 ? sr : sr * 0.4
-        if (i === 0) ctx.moveTo(sx + Math.cos(a) * rd, sy + Math.sin(a) * rd)
-        else ctx.lineTo(sx + Math.cos(a) * rd, sy + Math.sin(a) * rd)
-      }
-      ctx.closePath(); ctx.fill()
-    },
-  },
-  {
-    name: '오렌지',
-    draw(ctx: CanvasRenderingContext2D, w: number, h: number) {
-      const bg = ctx.createLinearGradient(0, 0, w, h)
-      bg.addColorStop(0, '#FF8C42')
-      bg.addColorStop(1, '#CC5500')
-      ctx.fillStyle = bg; ctx.fillRect(0, 0, w, h)
-
-      const cx = w/2, cy = h*0.46, r = Math.min(w,h)*0.34
-
-      // Body
-      ctx.fillStyle = '#FF8C42'
-      ctx.beginPath(); ctx.ellipse(cx, cy+r*0.55, r*0.8, r*0.6, 0, 0, Math.PI*2); ctx.fill()
-      // Head
-      ctx.fillStyle = '#FFBD7A'
-      ctx.beginPath(); ctx.arc(cx, cy, r, 0, Math.PI*2); ctx.fill()
-      // Ears
-      ctx.fillStyle = '#FFBD7A'
-      ctx.beginPath(); ctx.ellipse(cx-r*0.85, cy-r*0.25, r*0.16, r*0.26, -0.2, 0, Math.PI*2); ctx.fill()
-      ctx.beginPath(); ctx.ellipse(cx+r*0.85, cy-r*0.25, r*0.16, r*0.26, 0.2, 0, Math.PI*2); ctx.fill()
-      ctx.fillStyle = '#FFD5A8'
-      ctx.beginPath(); ctx.ellipse(cx-r*0.85, cy-r*0.25, r*0.08, r*0.14, -0.2, 0, Math.PI*2); ctx.fill()
-      ctx.beginPath(); ctx.ellipse(cx+r*0.85, cy-r*0.25, r*0.08, r*0.14, 0.2, 0, Math.PI*2); ctx.fill()
-      // Tummy
-      ctx.fillStyle = '#FFD5A8'
-      ctx.beginPath(); ctx.ellipse(cx, cy+r*0.12, r*0.5, r*0.4, 0, 0, Math.PI*2); ctx.fill()
-      // Eyes
-      ctx.fillStyle = 'white'
-      ctx.beginPath(); ctx.ellipse(cx-r*0.3, cy-r*0.1, r*0.17, r*0.19, 0, 0, Math.PI*2); ctx.fill()
-      ctx.beginPath(); ctx.ellipse(cx+r*0.3, cy-r*0.1, r*0.17, r*0.19, 0, 0, Math.PI*2); ctx.fill()
-      ctx.fillStyle = '#1A1A1A'
-      ctx.beginPath(); ctx.arc(cx-r*0.28, cy-r*0.08, r*0.11, 0, Math.PI*2); ctx.fill()
-      ctx.beginPath(); ctx.arc(cx+r*0.28, cy-r*0.08, r*0.11, 0, Math.PI*2); ctx.fill()
-      ctx.fillStyle = 'white'
-      ctx.beginPath(); ctx.arc(cx-r*0.32, cy-r*0.12, r*0.04, 0, Math.PI*2); ctx.fill()
-      ctx.beginPath(); ctx.arc(cx+r*0.24, cy-r*0.12, r*0.04, 0, Math.PI*2); ctx.fill()
-      // Smile
-      ctx.strokeStyle = '#CC5500'; ctx.lineWidth = r*0.07; ctx.lineCap = 'round'
-      ctx.beginPath()
-      ctx.moveTo(cx-r*0.25, cy+r*0.17)
-      ctx.quadraticCurveTo(cx, cy+r*0.36, cx+r*0.25, cy+r*0.17)
-      ctx.stroke()
-      // Cheeks
-      ctx.fillStyle = 'rgba(255,100,50,0.3)'
-      ctx.beginPath(); ctx.ellipse(cx-r*0.52, cy+r*0.08, r*0.17, r*0.11, 0, 0, Math.PI*2); ctx.fill()
-      ctx.beginPath(); ctx.ellipse(cx+r*0.52, cy+r*0.08, r*0.17, r*0.11, 0, 0, Math.PI*2); ctx.fill()
-      // Arms
-      ctx.fillStyle = '#FFBD7A'
-      ctx.beginPath(); ctx.ellipse(cx-r*0.95, cy+r*0.5, r*0.14, r*0.28, 0.3, 0, Math.PI*2); ctx.fill()
-      ctx.beginPath(); ctx.ellipse(cx+r*0.95, cy+r*0.5, r*0.14, r*0.28, -0.3, 0, Math.PI*2); ctx.fill()
-    },
-  },
-]
+// ART.png is used as the mosaic image across the brick grid
 
 interface Brick {
   x: number; y: number; w: number; h: number
@@ -178,19 +45,28 @@ function buildStars(w: number, h: number): Star[] {
   }))
 }
 
-// Draw mosaic character offscreen and return ImageData slices per brick
-function buildMosaicCanvas(canvasW: number, bricks: Brick[], charIdx: number): HTMLCanvasElement {
+// Draw ART.png offscreen — each brick then clips its portion
+function buildMosaicCanvas(canvasW: number, _bricks: Brick[], img: HTMLImageElement): HTMLCanvasElement {
   const mc = document.createElement('canvas')
   mc.width = canvasW
   const totalH = BRICK_ROWS*(BRICK_HEIGHT+BRICK_GAP) + 40
   mc.height = totalH
   const mctx = mc.getContext('2d')!
-  MOSAIC_CHARS[charIdx].draw(mctx, canvasW, totalH)
+  if (img.complete && img.naturalWidth > 0) {
+    mctx.drawImage(img, 0, 0, canvasW, totalH)
+  } else {
+    // fallback gradient while image loads
+    const bg = mctx.createLinearGradient(0, 0, canvasW, totalH)
+    bg.addColorStop(0, '#4D72FB'); bg.addColorStop(1, '#FF8C42')
+    mctx.fillStyle = bg; mctx.fillRect(0, 0, canvasW, totalH)
+  }
   return mc
 }
 
 export default function BrickBreakerGame({ onBack }: Props) {
-  const canvasRef = useRef<HTMLCanvasElement>(null)
+  const canvasRef  = useRef<HTMLCanvasElement>(null)
+  const artImgRef  = useRef<HTMLImageElement>(null as unknown as HTMLImageElement)
+  if (!artImgRef.current) { const img = new Image(); img.src = 'ART.png'; (artImgRef as any).current = img }
   const stateRef = useRef<{
     ball: Ball; paddle: Paddle; bricks: Brick[]
     lives: number; score: number; gameState: GameState; speed: number
@@ -199,12 +75,11 @@ export default function BrickBreakerGame({ onBack }: Props) {
     stars: Star[]; ballTrail: {x:number;y:number}[]
     combo: number; frameCount: number
     mosaicCanvas: HTMLCanvasElement | null
-    charIdx: number
   }>({
     ball:{x:0,y:0,vx:0,vy:0}, paddle:{x:0}, bricks:[], lives:3, score:0,
     gameState:'idle', speed:BASE_SPEED, rafId:0, keys:new Set(),
     particles:[], floatingTexts:[], stars:[], ballTrail:[],
-    combo:0, frameCount:0, mosaicCanvas:null, charIdx:0,
+    combo:0, frameCount:0, mosaicCanvas:null,
   })
 
   const [lives, setLives] = useState(3)
@@ -225,8 +100,7 @@ export default function BrickBreakerGame({ onBack }: Props) {
     s.ball   = {x: cw/2, y: ch-PADDLE_HEIGHT-50, vx: BASE_SPEED*(Math.random()>0.5?1:-1), vy:-BASE_SPEED}
     s.lives=3; s.score=0; s.gameState='playing'; s.speed=BASE_SPEED
     s.particles=[]; s.floatingTexts=[]; s.ballTrail=[]; s.combo=0; s.frameCount=0
-    s.charIdx = Math.floor(Math.random()*MOSAIC_CHARS.length)
-    s.mosaicCanvas = buildMosaicCanvas(cw, s.bricks, s.charIdx)
+    s.mosaicCanvas = buildMosaicCanvas(cw, s.bricks, artImgRef.current)
     setLives(3); setScore(0); setGameState('playing')
   }, [])
 

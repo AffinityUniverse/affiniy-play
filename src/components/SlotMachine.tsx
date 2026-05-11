@@ -94,6 +94,84 @@ const ITEMS: ItemSym[] = [
       <circle cx="75" cy="72" r="4" fill="#E91E63"/>
     </svg>`,
   },
+  {
+    id: 'book', label: '책', anchorTop: 0.52,
+    svg: `<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+      <rect x="18" y="18" width="64" height="70" rx="5" fill="#E53935"/>
+      <rect x="18" y="18" width="10" height="70" rx="3" fill="#B71C1C"/>
+      <rect x="24" y="26" width="50" height="4" rx="2" fill="rgba(255,255,255,0.6)"/>
+      <rect x="24" y="34" width="50" height="4" rx="2" fill="rgba(255,255,255,0.6)"/>
+      <rect x="24" y="42" width="35" height="4" rx="2" fill="rgba(255,255,255,0.6)"/>
+      <rect x="24" y="54" width="50" height="3" rx="1.5" fill="rgba(255,255,255,0.35)"/>
+      <rect x="24" y="61" width="50" height="3" rx="1.5" fill="rgba(255,255,255,0.35)"/>
+      <rect x="24" y="68" width="40" height="3" rx="1.5" fill="rgba(255,255,255,0.35)"/>
+      <circle cx="55" cy="44" r="10" fill="#FFD700" opacity="0.85"/>
+      <polygon points="55,37 57,42 63,42 58,46 60,52 55,48 50,52 52,46 47,42 53,42" fill="#E53935"/>
+    </svg>`,
+  },
+  {
+    id: 'telescope', label: '망원경', anchorTop: 0.48,
+    svg: `<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+      <rect x="38" y="52" width="6" height="28" rx="3" fill="#546E7A"/>
+      <rect x="30" y="76" width="22" height="6" rx="3" fill="#455A64"/>
+      <rect x="22" y="30" width="56" height="26" rx="8" fill="#78909C" transform="rotate(-18 50 43)"/>
+      <rect x="24" y="32" width="52" height="22" rx="7" fill="#90A4AE" transform="rotate(-18 50 43)"/>
+      <ellipse cx="65" cy="28" rx="12" ry="12" fill="#B0BEC5" transform="rotate(-18 65 28)"/>
+      <ellipse cx="65" cy="28" rx="9" ry="9" fill="#A0DFFF" transform="rotate(-18 65 28)"/>
+      <ellipse cx="63" cy="26" rx="3" ry="3" fill="rgba(255,255,255,0.55)" transform="rotate(-18 63 26)"/>
+      <rect x="22" y="36" width="6" height="14" rx="3" fill="#607D8B" transform="rotate(-18 25 43)"/>
+    </svg>`,
+  },
+  {
+    id: 'umbrella', label: '우산', anchorTop: 0.20,
+    svg: `<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+      <path d="M50,18 Q18,22 18,50 L50,50 Z" fill="#E91E63"/>
+      <path d="M50,18 Q82,22 82,50 L50,50 Z" fill="#FF5722"/>
+      <path d="M50,18 Q34,22 34,50 L50,50 Z" fill="#E91E63" opacity="0.7"/>
+      <path d="M50,18 Q66,22 66,50 L50,50 Z" fill="#FF5722" opacity="0.7"/>
+      <path d="M18,50 Q25,42 50,50 Q75,42 82,50" fill="none" stroke="rgba(0,0,0,0.12)" stroke-width="2"/>
+      <rect x="48" y="50" width="4" height="30" rx="2" fill="#795548"/>
+      <path d="M52,80 Q60,80 60,88 Q60,94 54,94" fill="none" stroke="#795548" stroke-width="4" stroke-linecap="round"/>
+    </svg>`,
+  },
+  {
+    id: 'bowtie', label: '나비넥타이', anchorTop: 0.44,
+    svg: `<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+      <polygon points="18,34 48,50 18,66" fill="#E53935"/>
+      <polygon points="82,34 52,50 82,66" fill="#E53935"/>
+      <ellipse cx="50" cy="50" rx="8" ry="10" fill="#C62828"/>
+      <polygon points="18,34 48,50 18,66" fill="none" stroke="#B71C1C" stroke-width="1.5"/>
+      <polygon points="82,34 52,50 82,66" fill="none" stroke="#B71C1C" stroke-width="1.5"/>
+      <line x1="26" y1="42" x2="44" y2="50" stroke="rgba(255,255,255,0.2)" stroke-width="2"/>
+      <line x1="74" y1="42" x2="56" y2="50" stroke="rgba(255,255,255,0.2)" stroke-width="2"/>
+    </svg>`,
+  },
+  {
+    id: 'guitar', label: '기타', anchorTop: 0.48,
+    svg: `<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+      <rect x="47" y="8" width="6" height="32" rx="3" fill="#8D6E63"/>
+      <rect x="38" y="8" width="24" height="8" rx="3" fill="#6D4C41"/>
+      <line x1="42" y1="8" x2="42" y2="40" stroke="#FFF" stroke-width="1" opacity="0.5"/>
+      <line x1="46" y1="8" x2="46" y2="40" stroke="#FFF" stroke-width="1" opacity="0.5"/>
+      <line x1="50" y1="8" x2="50" y2="40" stroke="#FFF" stroke-width="1" opacity="0.5"/>
+      <line x1="54" y1="8" x2="54" y2="40" stroke="#FFF" stroke-width="1" opacity="0.5"/>
+      <line x1="58" y1="8" x2="58" y2="40" stroke="#FFF" stroke-width="1" opacity="0.5"/>
+      <ellipse cx="50" cy="68" rx="22" ry="26" fill="#FF8F00"/>
+      <ellipse cx="50" cy="55" rx="14" ry="16" fill="#FF8F00"/>
+      <ellipse cx="50" cy="68" rx="22" ry="26" fill="none" stroke="#E65100" stroke-width="2"/>
+      <ellipse cx="50" cy="55" rx="14" ry="16" fill="none" stroke="#E65100" stroke-width="2"/>
+      <circle cx="50" cy="62" r="7" fill="none" stroke="#5D4037" stroke-width="2"/>
+      <line x1="44" y1="40" x2="56" y2="40" stroke="#6D4C41" stroke-width="3" stroke-linecap="round"/>
+    </svg>`,
+  },
+  {
+    id: 'shield', label: '방패', anchorTop: 0.42,
+    svg: `<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+      <path d="M50,12 L82,26 L82,54 Q82,78 50,90 Q18,78 18,54 L18,26 Z" fill="#1565C0"/>
+      <path d="M50,18 L76,30 L76,54 Q76,74 50,84 Q24,74 24,54 L24,30 Z" fill="#1E88E5"/>
+      <polygon points="50,30 56,44 72,44 59,54 64,68 50,58 36,68 41,54 28,44 44,44" fill="#FFD700"/>
+    </svg>`,
+  },
 ]
 
 const BACKGROUNDS: BgSym[] = [
@@ -209,6 +287,131 @@ const BACKGROUNDS: BgSym[] = [
       <polygon points="150,90  175,108 155,108" fill="white" opacity="0.75"/>
       <rect x="0" y="175" width="200" height="25" fill="#558B2F"/>
       <circle cx="170" cy="30" r="22" fill="#FFD54F" opacity="0.8"/>
+    </svg>`,
+  },
+  {
+    id: 'desert', label: '사막', color: '#E65100',
+    svg: `<svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+      <rect width="200" height="200" fill="#FFF8E1"/>
+      <rect x="0" y="110" width="200" height="90" fill="#FFCC80"/>
+      <path d="M0,110 Q30,98 60,110 Q90,122 130,106 Q160,94 200,110 L200,200 L0,200Z" fill="#FFB74D"/>
+      <ellipse cx="50" cy="150" rx="20" ry="8" fill="#FFA726" opacity="0.5"/>
+      <ellipse cx="160" cy="160" rx="16" ry="6" fill="#FFA726" opacity="0.5"/>
+      <circle cx="160" cy="45" r="28" fill="#FF8F00" opacity="0.95"/>
+      <circle cx="160" cy="45" r="28" fill="none" stroke="#FFD54F" stroke-width="8" opacity="0.4"/>
+      <rect x="88" y="70" width="12" height="50" rx="4" fill="#388E3C"/>
+      <ellipse cx="94" cy="66" rx="18" ry="22" fill="#4CAF50"/>
+      <ellipse cx="82" cy="78" rx="12" ry="16" fill="#4CAF50"/>
+      <ellipse cx="106" cy="80" rx="12" ry="15" fill="#43A047"/>
+      <line x1="30" y1="120" x2="55" y2="120" stroke="#795548" stroke-width="3"/>
+      <line x1="42" y1="108" x2="42" y2="120" stroke="#795548" stroke-width="3"/>
+      <line x1="35" y1="113" x2="50" y2="113" stroke="#795548" stroke-width="2"/>
+    </svg>`,
+  },
+  {
+    id: 'snow', label: '눈밭', color: '#1565C0',
+    svg: `<svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+      <rect width="200" height="200" fill="#E3F2FD"/>
+      <rect x="0" y="130" width="200" height="70" fill="#E8EAF6"/>
+      <path d="M0,130 Q40,118 80,130 Q120,142 160,128 Q180,122 200,130 L200,200 L0,200Z" fill="#F5F5FF"/>
+      <circle cx="30" cy="105" r="25" fill="#FFF"/>
+      <circle cx="50" cy="115" r="28" fill="#FFF"/>
+      <circle cx="80" cy="108" r="22" fill="#FFF"/>
+      <circle cx="140" cy="110" r="24" fill="#FFF"/>
+      <circle cx="168" cy="103" r="20" fill="#FFF"/>
+      <circle cx="155" cy="113" r="26" fill="#FFF"/>
+      <circle cx="100" cy="50" r="6" fill="white" opacity="0.9"/>
+      <circle cx="40" cy="35" r="4" fill="white" opacity="0.8"/>
+      <circle cx="170" cy="42" r="5" fill="white" opacity="0.9"/>
+      <circle cx="75" cy="20" r="3" fill="white" opacity="0.7"/>
+      <circle cx="130" cy="25" r="4" fill="white" opacity="0.8"/>
+      <text x="85" y="170" font-size="28" text-anchor="middle">⛄</text>
+      <line x1="100" y1="25" x2="100" y2="45" stroke="white" stroke-width="2" opacity="0.7"/>
+      <line x1="88" y1="35" x2="112" y2="35" stroke="white" stroke-width="2" opacity="0.7"/>
+      <line x1="88" y1="28" x2="100" y2="35" stroke="white" stroke-width="1.5" opacity="0.6"/>
+      <line x1="112" y1="28" x2="100" y2="35" stroke="white" stroke-width="1.5" opacity="0.6"/>
+    </svg>`,
+  },
+  {
+    id: 'castle', label: '성', color: '#4A148C',
+    svg: `<svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+      <rect width="200" height="200" fill="#CE93D8"/>
+      <rect x="0" y="160" width="200" height="40" fill="#7B1FA2"/>
+      <rect x="30" y="80" width="140" height="120" fill="#9C27B0"/>
+      <rect x="28" y="78" width="144" height="4" fill="#6A1B9A"/>
+      <rect x="30" y="60" width="30" height="40" fill="#AB47BC"/>
+      <rect x="140" y="60" width="30" height="40" fill="#AB47BC"/>
+      <rect x="85" y="50" width="30" height="50" fill="#AB47BC"/>
+      <rect x="28" y="52" width="10" height="14" fill="#6A1B9A"/>
+      <rect x="40" y="52" width="10" height="14" fill="#6A1B9A"/>
+      <rect x="138" y="52" width="10" height="14" fill="#6A1B9A"/>
+      <rect x="150" y="52" width="10" height="14" fill="#6A1B9A"/>
+      <rect x="83" y="42" width="10" height="14" fill="#6A1B9A"/>
+      <rect x="95" y="42" width="10" height="14" fill="#6A1B9A"/>
+      <rect x="107" y="42" width="10" height="14" fill="#6A1B9A"/>
+      <rect x="85" y="55" width="30" height="4" fill="#6A1B9A"/>
+      <rect x="82" y="110" width="36" height="50" rx="18" fill="#6A1B9A"/>
+      <rect x="60" y="130" width="20" height="14" rx="3" fill="#CE93D8" opacity="0.6"/>
+      <rect x="120" y="130" width="20" height="14" rx="3" fill="#CE93D8" opacity="0.6"/>
+      <polygon points="100,18 94,42 106,42" fill="#F44336"/>
+      <circle cx="140" cy="36" r="10" fill="#FFEE58" opacity="0.85"/>
+      <circle cx="60" cy="44" r="8" fill="#FFEE58" opacity="0.75"/>
+    </svg>`,
+  },
+  {
+    id: 'rainbow', label: '무지개', color: '#FF6F00',
+    svg: `<svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+      <rect width="200" height="200" fill="#E0F7FA"/>
+      <rect x="0" y="150" width="200" height="50" fill="#A5D6A7"/>
+      <path d="M10,160 Q100,40 190,160" fill="none" stroke="#F44336" stroke-width="14"/>
+      <path d="M18,160 Q100,52 182,160" fill="none" stroke="#FF9800" stroke-width="12"/>
+      <path d="M26,160 Q100,64 174,160" fill="none" stroke="#FFEB3B" stroke-width="12"/>
+      <path d="M34,160 Q100,76 166,160" fill="none" stroke="#4CAF50" stroke-width="11"/>
+      <path d="M42,160 Q100,88 158,160" fill="none" stroke="#2196F3" stroke-width="11"/>
+      <path d="M50,160 Q100,100 150,160" fill="none" stroke="#9C27B0" stroke-width="10"/>
+      <ellipse cx="40" cy="80" rx="28" ry="18" fill="white" opacity="0.95"/>
+      <ellipse cx="28" cy="82" rx="18" ry="13" fill="white" opacity="0.95"/>
+      <ellipse cx="160" cy="70" rx="32" ry="20" fill="white" opacity="0.95"/>
+      <ellipse cx="148" cy="72" rx="20" ry="14" fill="white" opacity="0.95"/>
+      <circle cx="100" cy="35" r="18" fill="#FFEE58" opacity="0.9"/>
+      <circle cx="100" cy="35" r="18" fill="none" stroke="#FFD54F" stroke-width="5" opacity="0.5"/>
+    </svg>`,
+  },
+  {
+    id: 'beach', label: '해변', color: '#0277BD',
+    svg: `<svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+      <rect width="200" height="200" fill="#80D8FF"/>
+      <rect x="0" y="120" width="200" height="80" fill="#0288D1"/>
+      <rect x="0" y="130" width="200" height="70" fill="#FFD54F"/>
+      <path d="M0,120 Q30,110 60,120 Q90,130 120,118 Q150,106 200,120 L200,140 L0,140Z" fill="#01B0F3"/>
+      <circle cx="160" cy="50" r="28" fill="#FFEE58"/>
+      <circle cx="160" cy="50" r="28" fill="none" stroke="#FFD54F" stroke-width="6" opacity="0.5"/>
+      <rect x="80" y="60" width="5" height="70" fill="#795548"/>
+      <path d="M85,60 Q85,30 130,40 Q105,55 85,65" fill="#4CAF50"/>
+      <ellipse cx="50" cy="150" rx="30" ry="12" fill="#FFB74D" opacity="0.6"/>
+      <ellipse cx="160" cy="155" rx="22" ry="9" fill="#FFB74D" opacity="0.5"/>
+      <text x="100" y="168" font-size="22" text-anchor="middle">🦀</text>
+    </svg>`,
+  },
+  {
+    id: 'farm', label: '농장', color: '#558B2F',
+    svg: `<svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+      <rect width="200" height="200" fill="#90CAF9"/>
+      <rect x="0" y="130" width="200" height="70" fill="#8BC34A"/>
+      <rect x="0" y="138" width="200" height="62" fill="#7CB342"/>
+      <rect x="30" y="90" width="60" height="50" fill="#EF9A9A"/>
+      <polygon points="30,90 90,90 60,62" fill="#E53935"/>
+      <rect x="52" y="112" width="16" height="28" fill="#6D4C41"/>
+      <rect x="110" y="100" width="70" height="40" fill="#A5D6A7"/>
+      <polygon points="110,100 180,100 145,76" fill="#4CAF50"/>
+      <rect x="38" y="100" width="14" height="14" rx="2" fill="#F48FB1"/>
+      <rect x="68" y="100" width="14" height="14" rx="2" fill="#F48FB1"/>
+      <rect x="122" y="110" width="12" height="12" rx="2" fill="#80DEEA"/>
+      <rect x="154" y="110" width="12" height="12" rx="2" fill="#80DEEA"/>
+      <text x="170" y="155" font-size="24" text-anchor="middle">🐄</text>
+      <text x="28" y="160" font-size="20" text-anchor="middle">🌻</text>
+      <text x="56" y="160" font-size="20" text-anchor="middle">🌻</text>
+      <circle cx="100" cy="40" r="24" fill="#FFEE58" opacity="0.9"/>
     </svg>`,
   },
 ]
