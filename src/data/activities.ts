@@ -2,7 +2,7 @@ export type ActivityId =
   | 'memory' | 'puzzle' | 'coloring' | 'shapematch'
   | 'hidden' | 'designquiz' | 'music' | 'balloon' | 'numbermemory'
   | 'minesweeper' | 'brickbreaker' | 'dinogame'
-  | 'shortcutquiz' | 'whackmole' | 'tictactoe';
+  | 'shortcutquiz' | 'whackmole' | 'tictactoe' | 'suika';
 
 export interface ActivityInfo {
   id: ActivityId;
@@ -30,4 +30,5 @@ export const activities: ActivityInfo[] = [
   { id: 'shortcutquiz', title: '단축키 퀴즈',    tagline: '단축키를 맞춰봐요!',          image: 'chars/student.png', bg: '#D5EEFF', accent: '#0066CC' },
   { id: 'whackmole',    title: '두더지 잡기',    tagline: '두더지를 잡아봐요!',          image: 'chars/girl.png',    bg: '#F0E8D5', accent: '#8B5E3C' },
   { id: 'tictactoe',    title: '틱택토',          tagline: '컴퓨터와 대결해봐요!',        image: 'chars/bear.png',    bg: '#EEF3FF', accent: '#4D72FB' },
+  { id: 'suika',        title: '수박 게임',        tagline: '과일을 합쳐 수박을 만들어요!', image: 'chars/fox.png',     bg: '#FFE9D5', accent: '#FF8C42' },
 ];

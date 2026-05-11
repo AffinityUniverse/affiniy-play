@@ -16,6 +16,7 @@ import DinoGame from './activities/DinoGame'
 import ShortcutQuizGame from './activities/ShortcutQuizGame'
 import WhackAMoleGame from './activities/WhackAMoleGame'
 import TicTacToeGame from './activities/TicTacToeGame'
+import SuikaGame from './activities/SuikaGame'
 
 export default function App() {
   const [current, setCurrent] = useState<ActivityId | null>(null)
@@ -37,5 +38,6 @@ export default function App() {
     case 'shortcutquiz': return <ShortcutQuizGame onBack={goHome} />
     case 'whackmole':    return <WhackAMoleGame onBack={goHome} />
     case 'tictactoe':   return <TicTacToeGame onBack={goHome} />
+    case 'suika':       return <SuikaGame onBack={goHome} />
   }
 }
