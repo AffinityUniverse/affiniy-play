@@ -41,7 +41,7 @@ const QUESTIONS: Question[] = [
 type GameState = 'idle' | 'playing' | 'won' | 'lost'
 
 const TOTAL_LANES  = 4
-const WALL_THICK   = 200     // wide for readability
+const WALL_THICK   = 380     // wide for readability
 const SUB_W = 72
 const SUB_H = 36
 const WALL_SPEED   = 2.5
@@ -239,17 +239,17 @@ export default function ShortcutQuizGame({ onBack }: Props) {
           ctx.strokeStyle=isFlash?(g.flashCorrect?'#44FF44':'#FF4444'):isCorrect?LANE_COLORS[lane]:`${LANE_COLORS[lane]}88`
           ctx.lineWidth=isFlash?3:isCorrect?2.5:1.5
           ctx.beginPath(); ctx.roundRect(wx+2,gTop+3,WALL_THICK-4,gapH-6,8); ctx.stroke()
-          // number badge
-          ctx.fillStyle=LANE_COLORS[lane]
-          ctx.beginPath(); ctx.roundRect(wall.x-14,gTop+7,28,20,10); ctx.fill()
-          ctx.fillStyle='#FFF'; ctx.font=`bold ${Math.round(gapH*0.18)}px sans-serif`; ctx.textAlign='center'
-          ctx.fillText(`${lane+1}`,wall.x,gTop+21)
-          // shortcut text — dark, large, centered
-          ctx.fillStyle=isCorrect?LANE_COLORS[lane]:'#222'
-          ctx.textAlign='center'
+          // shortcut text — big, centered, high contrast
           const txt=q.choices[lane]
-          ctx.font=`bold ${Math.min(Math.round(WALL_THICK*0.13),22)}px monospace`
-          ctx.fillText(txt,wall.x,gy+8)
+          const fontSize=Math.min(Math.round(gapH*0.38),28)
+          ctx.textAlign='center'; ctx.textBaseline='middle'
+          // shadow for pop
+          ctx.shadowColor='rgba(0,0,0,0.18)'; ctx.shadowBlur=4; ctx.shadowOffsetY=2
+          ctx.fillStyle=isCorrect?LANE_COLORS[lane]:'#111'
+          ctx.font=`900 ${fontSize}px "Courier New", monospace`
+          ctx.fillText(txt,wall.x,gy)
+          ctx.shadowColor='transparent'; ctx.shadowBlur=0; ctx.shadowOffsetY=0
+          ctx.textBaseline='alphabetic'
         }
         // bottom wall
         const lb=laneY(TOTAL_LANES-1,ch)+gapH/2
