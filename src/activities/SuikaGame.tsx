@@ -99,10 +99,13 @@ export default function SuikaGame({ onBack }: Props) {
     cooldown: number
     dangerFrames: number
     cw: number; ch: number
+    lastTime: number
+    accumulator: number
   }>({
     fruits: [], score: 0, gameState: 'idle', rafId: 0,
     dropX: 170, currentLevel: randLevel(), nextLevel: randLevel(),
     cooldown: 0, dangerFrames: 0, cw: 340, ch: 520,
+    lastTime: 0, accumulator: 0,
   })
 
   const [score, setScore] = useState(0)
@@ -126,6 +129,8 @@ export default function SuikaGame({ onBack }: Props) {
     s.nextLevel = randLevel()
     s.cooldown = 0
     s.dangerFrames = 0
+    s.lastTime = 0
+    s.accumulator = 0
     const { w } = getCanvasSize()
     s.dropX = w / 2
     setScore(0)
@@ -276,8 +281,30 @@ export default function SuikaGame({ onBack }: Props) {
     }
 
     const cv = canvas  // non-null reference for closures
+    const FIXED_DT = 1000 / 60  // 16.667ms — 주사율과 무관한 고정 물리 스텝
 
-    // ── Draw ──
+    // ── 게임 로직 업데이트 (고정 60fps로만 실행) ──
+    function update() {
+      if (s.gameState !== 'playing') return
+      const cw = cv.width, ch = cv.height
+      if (s.cooldown > 0) {
+        s.cooldown--
+        if (s.cooldown === 0) {
+          s.currentLevel = s.nextLevel
+          s.nextLevel = randLevel()
+          setCurrentLevel(s.currentLevel)
+          setNextLevel(s.nextLevel)
+        }
+      }
+      for (let i = 0; i < PHYS_STEPS; i++) physicsStep(s.fruits, cw, ch)
+      const gained = checkMerges(s.fruits)
+      if (gained) { s.score += gained; setScore(s.score) }
+      const danger = s.fruits.some(f => f.y - f.r < DANGER_Y && Math.abs(f.vy) < 0.8 && Math.abs(f.vx) < 0.8)
+      if (danger) { s.dangerFrames++ } else { s.dangerFrames = 0 }
+      if (s.dangerFrames > 80) { s.gameState = 'over'; setGameState('over') }
+    }
+
+    // ── 렌더링 (매 rAF 프레임마다 실행) ──
     function draw(ctx: CanvasRenderingContext2D) {
       const cw = cv.width, ch = cv.height
       const GL = gameL, GR = gameR(cw), GB = gameB(ch)
@@ -327,27 +354,6 @@ export default function SuikaGame({ onBack }: Props) {
         return
       }
 
-      // ── 게임 중 업데이트 ──
-      if (s.gameState === 'playing') {
-        if (s.cooldown > 0) {
-          s.cooldown--
-          if (s.cooldown === 0) {
-            s.currentLevel = s.nextLevel
-            s.nextLevel = randLevel()
-            setCurrentLevel(s.currentLevel)
-            setNextLevel(s.nextLevel)
-          }
-        }
-        for (let i = 0; i < PHYS_STEPS; i++) physicsStep(s.fruits, cw, ch)
-        const gained = checkMerges(s.fruits)
-        if (gained) { s.score += gained; setScore(s.score) }
-
-        // 게임 오버 판정: 위험선 위 과일이 거의 멈춘 상태
-        const danger = s.fruits.some(f => f.y - f.r < DANGER_Y && Math.abs(f.vy) < 0.8 && Math.abs(f.vx) < 0.8)
-        if (danger) { s.dangerFrames++ } else { s.dangerFrames = 0 }
-        if (s.dangerFrames > 80) { s.gameState = 'over'; setGameState('over') }
-      }
-
       // 과일 그리기
       for (const f of s.fruits) drawFruitShape(ctx, f)
 
@@ -381,8 +387,19 @@ export default function SuikaGame({ onBack }: Props) {
       }
     }
 
-    const loop = () => {
-      const ctx = canvas.getContext('2d')
+    // 고정 타임스텝 루프: 물리는 항상 16.67ms(60fps) 단위, 렌더는 매 프레임
+    const loop = (timestamp: number) => {
+      if (s.lastTime === 0) s.lastTime = timestamp
+      const elapsed = Math.min(timestamp - s.lastTime, 50)  // 최대 50ms (탭 비활성 등 방지)
+      s.lastTime = timestamp
+      s.accumulator += elapsed
+
+      while (s.accumulator >= FIXED_DT) {
+        update()
+        s.accumulator -= FIXED_DT
+      }
+
+      const ctx = cv.getContext('2d')
       if (ctx) draw(ctx)
       s.rafId = requestAnimationFrame(loop)
     }
