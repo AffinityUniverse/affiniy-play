@@ -9,13 +9,12 @@ interface ItemSym  { id: string; label: string; svg: string; anchorTop: number }
 interface BgSym    { id: string; label: string; svg: string; color: string }
 
 const FACES: FaceSym[] = [
-  { id: 'student', label: '학생',   file: 'chars/student.png' },
-  { id: 'girl',    label: '소녀',   file: 'chars/girl.png'    },
-  { id: 'bear',    label: '곰돌이', file: 'chars/bear.png'    },
-  { id: 'cat',     label: '고양이', file: 'chars/cat.png'     },
-  { id: 'fox',     label: '여우',   file: 'chars/fox.png'     },
-  { id: 'turtle',  label: '거북이', file: 'chars/turtle.png'  },
-  { id: 'deer',    label: '사슴',   file: 'chars/deer.png'    },
+  { id: 'char1', label: '캐릭터1', file: 'png/Artboard1.png' },
+  { id: 'char2', label: '캐릭터2', file: 'png/Artboard2.png' },
+  { id: 'char3', label: '캐릭터3', file: 'png/Artboard3.png' },
+  { id: 'char4', label: '캐릭터4', file: 'png/Artboard4.png' },
+  { id: 'char5', label: '캐릭터5', file: 'png/Artboard5.png' },
+  { id: 'char6', label: '캐릭터6', file: 'png/Artboard6.png' },
 ]
 
 // SVG accessories — each is a 100×100 viewBox SVG string
@@ -230,6 +229,209 @@ const ITEMS: ItemSym[] = [
       <path d="M50,12 L82,26 L82,54 Q82,78 50,90 Q18,78 18,54 L18,26 Z" fill="#1565C0"/>
       <path d="M50,18 L76,30 L76,54 Q76,74 50,84 Q24,74 24,54 L24,30 Z" fill="#1E88E5"/>
       <polygon points="50,30 56,44 72,44 59,54 64,68 50,58 36,68 41,54 28,44 44,44" fill="#FFD700"/>
+    </svg>`,
+  },
+  {
+    id: 'icecream', label: '아이스크림', anchorTop: 0.28,
+    svg: `<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+      <rect x="40" y="52" width="20" height="36" rx="4" fill="#F9A825"/>
+      <rect x="42" y="54" width="4" height="32" rx="2" fill="rgba(255,255,255,0.3)"/>
+      <ellipse cx="50" cy="52" rx="28" ry="28" fill="#FF8A80"/>
+      <ellipse cx="38" cy="40" rx="8" ry="8" fill="#FFCDD2"/>
+      <ellipse cx="60" cy="38" rx="6" ry="6" fill="#FFCDD2"/>
+      <circle cx="46" cy="52" r="4" fill="#FF5252"/>
+      <circle cx="58" cy="48" r="3" fill="#FF5252"/>
+      <circle cx="52" cy="58" r="3" fill="#FF5252"/>
+      <path d="M50,22 Q62,28 68,40" fill="none" stroke="rgba(255,255,255,0.5)" stroke-width="2"/>
+    </svg>`,
+  },
+  {
+    id: 'backpack', label: '가방', anchorTop: 0.40,
+    svg: `<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+      <rect x="22" y="32" width="56" height="58" rx="12" fill="#42A5F5"/>
+      <rect x="22" y="32" width="56" height="58" rx="12" fill="none" stroke="#1976D2" stroke-width="2.5"/>
+      <path d="M38,32 Q38,18 50,18 Q62,18 62,32" fill="none" stroke="#1976D2" stroke-width="5" stroke-linecap="round"/>
+      <rect x="33" y="54" width="34" height="22" rx="8" fill="#1976D2"/>
+      <rect x="35" y="56" width="30" height="18" rx="6" fill="#64B5F6"/>
+      <rect x="44" y="62" width="12" height="6" rx="3" fill="#1976D2"/>
+      <rect x="30" y="36" width="40" height="6" rx="3" fill="#1565C0" opacity="0.4"/>
+    </svg>`,
+  },
+  {
+    id: 'trophy', label: '트로피', anchorTop: 0.34,
+    svg: `<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+      <rect x="36" y="72" width="28" height="8" rx="3" fill="#F9A825"/>
+      <rect x="28" y="80" width="44" height="8" rx="4" fill="#F57F17"/>
+      <rect x="44" y="64" width="12" height="10" rx="2" fill="#FBC02D"/>
+      <path d="M30,20 L70,20 L65,55 Q65,68 50,68 Q35,68 35,55 Z" fill="#FFD740"/>
+      <path d="M30,20 L20,20 Q16,20 16,28 Q16,44 32,50" fill="none" stroke="#FBC02D" stroke-width="6" stroke-linecap="round"/>
+      <path d="M70,20 L80,20 Q84,20 84,28 Q84,44 68,50" fill="none" stroke="#FBC02D" stroke-width="6" stroke-linecap="round"/>
+      <polygon points="50,28 53,36 62,36 55,42 58,50 50,44 42,50 45,42 38,36 47,36" fill="#FF8F00"/>
+      <path d="M32,22 L68,22 L64,54 Q63,65 50,65 Q37,65 36,54 Z" fill="none" stroke="#F9A825" stroke-width="1.5" opacity="0.5"/>
+    </svg>`,
+  },
+  {
+    id: 'rocket', label: '로켓', anchorTop: 0.30,
+    svg: `<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+      <path d="M50,10 Q62,10 68,30 L68,72 Q68,78 50,82 Q32,78 32,72 L32,30 Q38,10 50,10 Z" fill="#EF5350"/>
+      <path d="M50,10 Q56,10 60,22 L60,72 Q60,77 50,80 Q40,77 40,72 L40,22 Q44,10 50,10 Z" fill="#FF7043"/>
+      <ellipse cx="50" cy="28" rx="10" ry="12" fill="#A0DFFF"/>
+      <ellipse cx="47" cy="25" rx="4" ry="5" fill="rgba(255,255,255,0.5)"/>
+      <path d="M32,65 L18,80 L28,75 L24,88 L38,72 Z" fill="#FF9800"/>
+      <path d="M68,65 L82,80 L72,75 L76,88 L62,72 Z" fill="#FF9800"/>
+      <ellipse cx="50" cy="84" rx="12" ry="8" fill="#FFD740" opacity="0.8"/>
+      <ellipse cx="50" cy="88" rx="8" ry="6" fill="#FF6D00" opacity="0.9"/>
+    </svg>`,
+  },
+  {
+    id: 'lollipop', label: '막대사탕', anchorTop: 0.28,
+    svg: `<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+      <rect x="46" y="55" width="8" height="36" rx="4" fill="#795548"/>
+      <circle cx="50" cy="40" r="26" fill="#FF5FA0"/>
+      <path d="M50,14 Q76,14 76,40 Q76,66 50,66" fill="#FF8A80" opacity="0.6"/>
+      <path d="M30,26 Q24,40 30,54" fill="none" stroke="rgba(255,255,255,0.4)" stroke-width="4" stroke-linecap="round"/>
+      <path d="M36,20 Q50,14 64,20 Q76,28 76,42" fill="none" stroke="rgba(255,255,255,0.35)" stroke-width="3" stroke-linecap="round"/>
+      <circle cx="40" cy="32" r="5" fill="rgba(255,255,255,0.3)"/>
+    </svg>`,
+  },
+  {
+    id: 'balloon2', label: '풍선', anchorTop: 0.22,
+    svg: `<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+      <ellipse cx="50" cy="42" rx="28" ry="32" fill="#FF5FA0"/>
+      <ellipse cx="42" cy="30" rx="10" ry="12" fill="rgba(255,255,255,0.3)"/>
+      <path d="M50,74 L46,82 L54,82 Z" fill="#FF5FA0"/>
+      <rect x="48" y="82" width="4" height="14" rx="2" fill="#795548"/>
+      <path d="M52,82 Q62,78 68,88" fill="none" stroke="#795548" stroke-width="2.5" stroke-linecap="round"/>
+    </svg>`,
+  },
+  {
+    id: 'basketball', label: '농구공', anchorTop: 0.45,
+    svg: `<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="50" cy="50" r="36" fill="#FF6D00"/>
+      <circle cx="50" cy="50" r="36" fill="none" stroke="#E64A19" stroke-width="2.5"/>
+      <path d="M14,50 Q32,38 50,50 Q68,62 86,50" fill="none" stroke="#BF360C" stroke-width="2.5"/>
+      <path d="M50,14 Q38,32 50,50 Q62,68 50,86" fill="none" stroke="#BF360C" stroke-width="2.5"/>
+      <path d="M26,22 Q32,50 26,78" fill="none" stroke="#BF360C" stroke-width="2"/>
+      <path d="M74,22 Q68,50 74,78" fill="none" stroke="#BF360C" stroke-width="2"/>
+      <ellipse cx="38" cy="34" rx="7" ry="5" fill="rgba(255,255,255,0.2)" transform="rotate(-30 38 34)"/>
+    </svg>`,
+  },
+  {
+    id: 'diamond', label: '다이아몬드', anchorTop: 0.38,
+    svg: `<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+      <polygon points="50,15 78,38 50,88 22,38" fill="#80D8FF"/>
+      <polygon points="50,15 78,38 50,88 22,38" fill="none" stroke="#0288D1" stroke-width="2"/>
+      <polygon points="22,38 78,38 50,88" fill="#4FC3F7"/>
+      <polygon points="50,15 22,38 36,38" fill="rgba(255,255,255,0.5)"/>
+      <polygon points="50,15 36,38 64,38" fill="rgba(255,255,255,0.35)"/>
+      <polygon points="50,15 78,38 64,38" fill="rgba(255,255,255,0.2)"/>
+      <polygon points="22,38 36,38 50,60" fill="rgba(0,0,0,0.08)"/>
+      <polygon points="64,38 78,38 50,60" fill="rgba(0,0,0,0.12)"/>
+    </svg>`,
+  },
+  {
+    id: 'paintbrush', label: '붓', anchorTop: 0.40,
+    svg: `<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+      <rect x="44" y="10" width="12" height="58" rx="4" fill="#8D6E63"/>
+      <rect x="46" y="12" width="4" height="50" rx="2" fill="rgba(255,255,255,0.3)"/>
+      <ellipse cx="50" cy="74" rx="12" ry="16" fill="#4CAF50"/>
+      <ellipse cx="50" cy="82" rx="9" ry="9" fill="#388E3C"/>
+      <ellipse cx="50" cy="88" rx="6" ry="5" fill="#2E7D32"/>
+      <rect x="42" y="62" width="16" height="8" rx="3" fill="#6D4C41"/>
+      <rect x="44" y="10" width="12" height="8" rx="4" fill="#5D4037"/>
+      <ellipse cx="44" cy="72" rx="4" ry="6" fill="rgba(255,255,255,0.2)"/>
+    </svg>`,
+  },
+  {
+    id: 'microphone', label: '마이크', anchorTop: 0.38,
+    svg: `<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+      <rect x="43" y="56" width="14" height="28" rx="5" fill="#546E7A"/>
+      <rect x="34" y="82" width="32" height="6" rx="3" fill="#455A64"/>
+      <rect x="38" y="10" width="24" height="46" rx="12" fill="#E53935"/>
+      <rect x="40" y="12" width="20" height="42" rx="10" fill="#EF5350"/>
+      <rect x="42" y="14" width="6" height="38" rx="3" fill="rgba(255,255,255,0.2)"/>
+      <line x1="38" y1="30" x2="62" y2="30" stroke="rgba(0,0,0,0.1)" stroke-width="2"/>
+      <line x1="38" y1="38" x2="62" y2="38" stroke="rgba(0,0,0,0.1)" stroke-width="2"/>
+      <line x1="38" y1="46" x2="62" y2="46" stroke="rgba(0,0,0,0.1)" stroke-width="2"/>
+      <path d="M28,46 Q28,66 50,66 Q72,66 72,46" fill="none" stroke="#455A64" stroke-width="4" stroke-linecap="round"/>
+    </svg>`,
+  },
+  {
+    id: 'soccer', label: '축구공', anchorTop: 0.45,
+    svg: `<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="50" cy="50" r="36" fill="white"/>
+      <circle cx="50" cy="50" r="36" fill="none" stroke="#333" stroke-width="2.5"/>
+      <polygon points="50,22 58,30 55,40 45,40 42,30" fill="#333"/>
+      <polygon points="74,36 78,46 70,52 62,46 64,36" fill="#333"/>
+      <polygon points="72,66 64,74 54,70 56,60 66,58" fill="#333"/>
+      <polygon points="28,66 36,58 46,60 48,70 38,74" fill="#333"/>
+      <polygon points="26,36 36,36 38,46 30,52 22,46" fill="#333"/>
+    </svg>`,
+  },
+  {
+    id: 'lantern', label: '등불', anchorTop: 0.30,
+    svg: `<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+      <rect x="44" y="8" width="12" height="12" rx="3" fill="#795548"/>
+      <rect x="46" y="18" width="8" height="6" rx="2" fill="#6D4C41"/>
+      <rect x="30" y="24" width="40" height="54" rx="10" fill="#FF8F00"/>
+      <rect x="32" y="26" width="36" height="50" rx="9" fill="#FFA726"/>
+      <rect x="36" y="30" width="8" height="42" rx="4" fill="rgba(255,255,255,0.15)"/>
+      <ellipse cx="50" cy="50" rx="14" ry="18" fill="#FFEE58" opacity="0.7"/>
+      <ellipse cx="50" cy="48" rx="8" ry="10" fill="rgba(255,255,255,0.5)"/>
+      <rect x="30" y="75" width="40" height="5" rx="2" fill="#E65100"/>
+      <rect x="42" y="80" width="4" height="12" rx="2" fill="#FF8F00"/>
+      <rect x="54" y="80" width="4" height="12" rx="2" fill="#FF8F00"/>
+      <rect x="36" y="92" width="28" height="4" rx="2" fill="#E65100"/>
+    </svg>`,
+  },
+  {
+    id: 'flower', label: '꽃', anchorTop: 0.28,
+    svg: `<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+      <rect x="47" y="56" width="6" height="36" rx="3" fill="#4CAF50"/>
+      <path d="M50,70 Q40,62 32,68" fill="none" stroke="#4CAF50" stroke-width="4" stroke-linecap="round"/>
+      <ellipse cx="50" cy="20" rx="10" ry="16" fill="#FF5FA0" transform="rotate(0 50 20)"/>
+      <ellipse cx="50" cy="20" rx="10" ry="16" fill="#FF5FA0" transform="rotate(45 50 36)"/>
+      <ellipse cx="50" cy="20" rx="10" ry="16" fill="#FF8A80" transform="rotate(90 50 50)"/>
+      <ellipse cx="50" cy="20" rx="10" ry="16" fill="#FF8A80" transform="rotate(135 50 64)"/>
+      <ellipse cx="50" cy="20" rx="10" ry="16" fill="#FF5FA0" transform="rotate(180 50 50)"/>
+      <ellipse cx="50" cy="20" rx="10" ry="16" fill="#FF5FA0" transform="rotate(225 50 36)"/>
+      <ellipse cx="50" cy="20" rx="10" ry="16" fill="#FF8A80" transform="rotate(270 50 50)"/>
+      <ellipse cx="50" cy="20" rx="10" ry="16" fill="#FF8A80" transform="rotate(315 50 64)"/>
+      <circle cx="50" cy="46" r="12" fill="#FFD740"/>
+      <circle cx="50" cy="46" r="8" fill="#FFEA00"/>
+      <circle cx="47" cy="43" r="3" fill="rgba(255,255,255,0.4)"/>
+    </svg>`,
+  },
+  {
+    id: 'cookie', label: '쿠키', anchorTop: 0.45,
+    svg: `<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="50" cy="50" r="36" fill="#C8863A"/>
+      <circle cx="50" cy="50" r="34" fill="#D4944A"/>
+      <circle cx="36" cy="36" r="6" fill="#5D3A1A"/>
+      <circle cx="58" cy="32" r="5" fill="#5D3A1A"/>
+      <circle cx="68" cy="52" r="6" fill="#5D3A1A"/>
+      <circle cx="54" cy="62" r="5" fill="#5D3A1A"/>
+      <circle cx="36" cy="60" r="4" fill="#5D3A1A"/>
+      <circle cx="44" cy="44" r="3" fill="#5D3A1A"/>
+      <circle cx="36" cy="36" r="4" fill="#7B4F28"/>
+      <circle cx="58" cy="32" r="3" fill="#7B4F28"/>
+      <circle cx="68" cy="52" r="4" fill="#7B4F28"/>
+      <circle cx="54" cy="62" r="3" fill="#7B4F28"/>
+      <ellipse cx="38" cy="32" rx="4" ry="2" fill="rgba(255,255,255,0.15)" transform="rotate(-20 38 32)"/>
+    </svg>`,
+  },
+  {
+    id: 'kite', label: '연', anchorTop: 0.30,
+    svg: `<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+      <polygon points="50,8 80,46 50,68 20,46" fill="#FF5722"/>
+      <polygon points="50,8 80,46 50,46" fill="#FF8A65"/>
+      <polygon points="50,46 80,46 50,68" fill="#E64A19"/>
+      <line x1="50" y1="8" x2="50" y2="68" stroke="rgba(0,0,0,0.2)" stroke-width="1.5"/>
+      <line x1="20" y1="46" x2="80" y2="46" stroke="rgba(0,0,0,0.2)" stroke-width="1.5"/>
+      <path d="M50,68 Q56,78 46,86 Q54,92 50,95" fill="none" stroke="#795548" stroke-width="2.5" stroke-linecap="round"/>
+      <circle cx="44" cy="82" r="3" fill="#FF9800"/>
+      <circle cx="52" cy="90" r="3" fill="#FF9800"/>
+      <circle cx="48" cy="75" r="2" fill="#FF9800"/>
     </svg>`,
   },
 ]
