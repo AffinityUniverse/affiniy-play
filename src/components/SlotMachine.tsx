@@ -770,30 +770,29 @@ export default function SlotMachine({ width = 340 }: Props) {
         try {
           this.stopSpin()
           const c = getCtx()
+          // 띠리리리링: 밝은 음정 순환 (펜타토닉 스케일)
+          const pitches = [1047, 1319, 1568, 1760, 1319, 1047, 1319, 1568]
+          let idx = 0
           const interval = setInterval(() => {
             try {
               const now = c.currentTime
-              // 노이즈 클릭: 기계적 틱 느낌
-              const clickLen = Math.floor(c.sampleRate * 0.022)
-              const buf = c.createBuffer(1, clickLen, c.sampleRate)
-              const data = buf.getChannelData(0)
-              for (let i = 0; i < clickLen; i++)
-                data[i] = (Math.random()*2-1) * Math.exp(-i / clickLen * 90)
-              const src = c.createBufferSource(); src.buffer = buf
-              const bp = c.createBiquadFilter(); bp.type = 'bandpass'
-              bp.frequency.value = 3000; bp.Q.value = 2.5
-              const g = c.createGain(); g.gain.setValueAtTime(0.6, now)
-              src.connect(bp).connect(g).connect(c.destination); src.start(now)
-              // 저음 타격감
+              const freq = pitches[idx % pitches.length]; idx++
+              // 기본음
               const o = c.createOscillator(); o.type = 'sine'
-              o.frequency.setValueAtTime(280, now)
-              o.frequency.exponentialRampToValueAtTime(70, now + 0.032)
+              o.frequency.setValueAtTime(freq, now)
+              const g = c.createGain()
+              g.gain.setValueAtTime(0.30, now)
+              g.gain.exponentialRampToValueAtTime(0.001, now + 0.13)
+              o.connect(g).connect(c.destination); o.start(now); o.stop(now + 0.14)
+              // 배음 (2배): 링 느낌 강화
+              const o2 = c.createOscillator(); o2.type = 'sine'
+              o2.frequency.setValueAtTime(freq * 2, now)
               const g2 = c.createGain()
-              g2.gain.setValueAtTime(0.22, now)
-              g2.gain.exponentialRampToValueAtTime(0.001, now + 0.036)
-              o.connect(g2).connect(c.destination); o.start(now); o.stop(now + 0.04)
+              g2.gain.setValueAtTime(0.10, now)
+              g2.gain.exponentialRampToValueAtTime(0.001, now + 0.09)
+              o2.connect(g2).connect(c.destination); o2.start(now); o2.stop(now + 0.10)
             } catch(_) {}
-          }, 52)
+          }, 42)
           spinNodes = { interval }
         } catch(_) {}
       },
