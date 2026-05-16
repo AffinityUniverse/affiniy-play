@@ -754,7 +754,7 @@ export default function SlotMachine({ width = 340 }: Props) {
       return m.ac
     }
 
-    let spinNodes: { osc: OscillatorNode; ns: AudioBufferSourceNode; g: GainNode } | null = null
+    let spinNodes: { interval: ReturnType<typeof setInterval> } | null = null
 
     const Sfx = {
       click() {
@@ -770,24 +770,26 @@ export default function SlotMachine({ width = 340 }: Props) {
         try {
           this.stopSpin()
           const c = getCtx()
-          const g = c.createGain(); g.gain.setValueAtTime(0, c.currentTime); g.gain.linearRampToValueAtTime(0.16, c.currentTime+0.3); g.connect(c.destination)
-          const osc = c.createOscillator(); osc.type = 'triangle'; osc.frequency.value = 90; osc.connect(g); osc.start()
-          const nb = c.createBuffer(1, c.sampleRate*3, c.sampleRate)
-          const nd = nb.getChannelData(0); for (let i=0;i<nd.length;i++) nd[i]=Math.random()*2-1
-          const ns = c.createBufferSource(); ns.buffer=nb; ns.loop=true
-          const f = c.createBiquadFilter(); f.type='bandpass'; f.frequency.value=900; f.Q.value=2
-          const ng = c.createGain(); ng.gain.value=0.022
-          ns.connect(f).connect(ng).connect(g); ns.start()
-          spinNodes = {osc, ns, g}
+          const interval = setInterval(() => {
+            try {
+              const now = c.currentTime
+              const o = c.createOscillator(); o.type = 'triangle'
+              o.frequency.setValueAtTime(1500, now)
+              o.frequency.exponentialRampToValueAtTime(600, now + 0.038)
+              const g = c.createGain()
+              g.gain.setValueAtTime(0.22, now)
+              g.gain.exponentialRampToValueAtTime(0.001, now + 0.048)
+              o.connect(g).connect(c.destination); o.start(); o.stop(now + 0.055)
+            } catch(_) {}
+          }, 62)
+          spinNodes = { interval }
         } catch(_) {}
       },
       stopSpin() {
         try {
           if (!spinNodes) return
-          const c = getCtx()
-          spinNodes.g.gain.linearRampToValueAtTime(0, c.currentTime+0.3)
-          const sn=spinNodes; spinNodes=null
-          setTimeout(()=>{ try{sn.osc.stop()}catch(_){} try{sn.ns.stop()}catch(_){} }, 400)
+          clearInterval(spinNodes.interval)
+          spinNodes = null
         } catch(_) {}
       },
       thud(i: number) {
