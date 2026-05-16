@@ -773,15 +773,27 @@ export default function SlotMachine({ width = 340 }: Props) {
           const interval = setInterval(() => {
             try {
               const now = c.currentTime
-              const o = c.createOscillator(); o.type = 'triangle'
-              o.frequency.setValueAtTime(1500, now)
-              o.frequency.exponentialRampToValueAtTime(600, now + 0.038)
-              const g = c.createGain()
-              g.gain.setValueAtTime(0.22, now)
-              g.gain.exponentialRampToValueAtTime(0.001, now + 0.048)
-              o.connect(g).connect(c.destination); o.start(); o.stop(now + 0.055)
+              // 노이즈 클릭: 기계적 틱 느낌
+              const clickLen = Math.floor(c.sampleRate * 0.022)
+              const buf = c.createBuffer(1, clickLen, c.sampleRate)
+              const data = buf.getChannelData(0)
+              for (let i = 0; i < clickLen; i++)
+                data[i] = (Math.random()*2-1) * Math.exp(-i / clickLen * 90)
+              const src = c.createBufferSource(); src.buffer = buf
+              const bp = c.createBiquadFilter(); bp.type = 'bandpass'
+              bp.frequency.value = 3000; bp.Q.value = 2.5
+              const g = c.createGain(); g.gain.setValueAtTime(0.6, now)
+              src.connect(bp).connect(g).connect(c.destination); src.start(now)
+              // 저음 타격감
+              const o = c.createOscillator(); o.type = 'sine'
+              o.frequency.setValueAtTime(280, now)
+              o.frequency.exponentialRampToValueAtTime(70, now + 0.032)
+              const g2 = c.createGain()
+              g2.gain.setValueAtTime(0.22, now)
+              g2.gain.exponentialRampToValueAtTime(0.001, now + 0.036)
+              o.connect(g2).connect(c.destination); o.start(now); o.stop(now + 0.04)
             } catch(_) {}
-          }, 62)
+          }, 52)
           spinNodes = { interval }
         } catch(_) {}
       },
