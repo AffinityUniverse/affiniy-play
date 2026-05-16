@@ -74,12 +74,12 @@ export default function BrickBreakerGame({ onBack }: Props) {
     particles: Particle[]; floatingTexts: FloatingText[]
     stars: Star[]; ballTrail: {x:number;y:number}[]
     combo: number; frameCount: number
-    mosaicCanvas: HTMLCanvasElement | null
+    mosaicCanvas: HTMLCanvasElement | null; lastTs: number
   }>({
     ball:{x:0,y:0,vx:0,vy:0}, paddle:{x:0}, bricks:[], lives:3, score:0,
     gameState:'idle', speed:BASE_SPEED, rafId:0, keys:new Set(),
     particles:[], floatingTexts:[], stars:[], ballTrail:[],
-    combo:0, frameCount:0, mosaicCanvas:null,
+    combo:0, frameCount:0, mosaicCanvas:null, lastTs:0,
   })
 
   const [lives, setLives] = useState(3)
@@ -144,7 +144,11 @@ export default function BrickBreakerGame({ onBack }: Props) {
     // Row colors for particles (behind mosaic)
     const ROW_COLORS = ['#D5E8FF','#FFE9D5','#D5F5E3','#FFD5E9','#E9D5FF','#FFFBD5','#D5F5FF','#FFD5D5']
 
-    const draw = (ctx: CanvasRenderingContext2D) => {
+    const draw = (ctx: CanvasRenderingContext2D, ts: number) => {
+      if (!s.lastTs) s.lastTs = ts
+      const dt = Math.min(ts - s.lastTs, 50)
+      s.lastTs = ts
+      const dts = dt / (1000 / 60)
       const cw=canvas.width, ch=canvas.height
       s.frameCount++
 
@@ -169,14 +173,14 @@ export default function BrickBreakerGame({ onBack }: Props) {
       }
 
       // Keyboard control
-      if (s.keys.has('ArrowLeft')) s.paddle.x=Math.max(0,s.paddle.x-10)
-      if (s.keys.has('ArrowRight')) s.paddle.x=Math.min(cw-PADDLE_WIDTH,s.paddle.x+10)
+      if (s.keys.has('ArrowLeft')) s.paddle.x=Math.max(0,s.paddle.x-10*dts)
+      if (s.keys.has('ArrowRight')) s.paddle.x=Math.min(cw-PADDLE_WIDTH,s.paddle.x+10*dts)
 
       if (s.gameState==='playing') {
         s.ballTrail.push({x:s.ball.x,y:s.ball.y})
         if (s.ballTrail.length>4) s.ballTrail.shift()
 
-        s.ball.x+=s.ball.vx; s.ball.y+=s.ball.vy
+        s.ball.x+=s.ball.vx*dts; s.ball.y+=s.ball.vy*dts
         if (s.ball.x-BALL_RADIUS<0){s.ball.x=BALL_RADIUS;s.ball.vx=Math.abs(s.ball.vx)}
         if (s.ball.x+BALL_RADIUS>cw){s.ball.x=cw-BALL_RADIUS;s.ball.vx=-Math.abs(s.ball.vx)}
         if (s.ball.y-BALL_RADIUS<0){s.ball.y=BALL_RADIUS;s.ball.vy=Math.abs(s.ball.vy)}
@@ -221,8 +225,8 @@ export default function BrickBreakerGame({ onBack }: Props) {
 
         if (s.bricks.every(b=>!b.alive)){s.gameState='won';setGameState('won')}
 
-        s.particles=s.particles.map(p=>({...p,x:p.x+p.vx,y:p.y+p.vy,vy:p.vy+0.1,life:p.life-1})).filter(p=>p.life>0)
-        s.floatingTexts=s.floatingTexts.map(ft=>({...ft,y:ft.y-1,life:ft.life-1})).filter(ft=>ft.life>0)
+        s.particles=s.particles.map(p=>({...p,x:p.x+p.vx*dts,y:p.y+p.vy*dts,vy:p.vy+0.1*dts,life:p.life-dts})).filter(p=>p.life>0)
+        s.floatingTexts=s.floatingTexts.map(ft=>({...ft,y:ft.y-dts,life:ft.life-dts})).filter(ft=>ft.life>0)
       }
 
       // ── Draw bricks with mosaic ──
@@ -308,7 +312,7 @@ export default function BrickBreakerGame({ onBack }: Props) {
       }
     }
 
-    const loop=()=>{ const ctx=canvas.getContext('2d'); if(ctx)draw(ctx); s.rafId=requestAnimationFrame(loop) }
+    const loop=(ts: number)=>{ const ctx=canvas.getContext('2d'); if(ctx)draw(ctx,ts); s.rafId=requestAnimationFrame(loop) }
     s.rafId=requestAnimationFrame(loop)
 
     return ()=>{

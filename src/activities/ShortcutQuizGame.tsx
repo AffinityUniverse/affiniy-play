@@ -130,7 +130,7 @@ export default function ShortcutQuizGame({ onBack }: Props) {
     walls: [] as WallObj[], score: 0, lives: 3, frameCount: 0, rafId: 0,
     bubbles: [] as Bubble[], qOrder: [] as number[], qPointer: 0,
     particles: [] as Particle[], flashTimer: 0, flashLane: -1, flashCorrect: false,
-    spawnAfter: -1,   // frame number to spawn next wall after a pass
+    spawnAfter: -1, lastTs: 0,   // frame number to spawn next wall after a pass
   })
 
   const shuffleQ = useCallback(() => {
@@ -169,8 +169,12 @@ export default function ShortcutQuizGame({ onBack }: Props) {
       for(let i=0;i<18;i++){const a=Math.random()*Math.PI*2,s=2+Math.random()*5;g.particles.push({x,y,vx:Math.cos(a)*s,vy:Math.sin(a)*s,life:35+Math.random()*20,color:colors[i%colors.length]})}
     }
 
-    function draw(ctx: CanvasRenderingContext2D) {
-      const cw=canvas!.width, ch=canvas!.height; g.frameCount++
+    function draw(ctx: CanvasRenderingContext2D, ts: number) {
+      if (!g.lastTs) g.lastTs = ts
+      const dt = Math.min(ts - g.lastTs, 50)
+      g.lastTs = ts
+      const dts = dt / (1000 / 60)
+      const cw=canvas!.width, ch=canvas!.height; g.frameCount+=dts
       // background
       const bg=ctx.createLinearGradient(0,0,0,ch)
       bg.addColorStop(0,'#B8E4FF'); bg.addColorStop(0.45,'#7DC8F5'); bg.addColorStop(1,'#3EB5E8')
@@ -189,7 +193,7 @@ export default function ShortcutQuizGame({ onBack }: Props) {
       }
       ctx.setLineDash([])
       // bubbles
-      for(const b of g.bubbles){ctx.globalAlpha=b.alpha;ctx.strokeStyle='rgba(255,255,255,0.8)';ctx.lineWidth=1;ctx.beginPath();ctx.arc(b.x,b.y,b.r,0,Math.PI*2);ctx.stroke();b.y-=b.speed;if(b.y<-b.r){b.y=ch+b.r;b.x=Math.random()*cw}}
+      for(const b of g.bubbles){ctx.globalAlpha=b.alpha;ctx.strokeStyle='rgba(255,255,255,0.8)';ctx.lineWidth=1;ctx.beginPath();ctx.arc(b.x,b.y,b.r,0,Math.PI*2);ctx.stroke();b.y-=b.speed*dts;if(b.y<-b.r){b.y=ch+b.r;b.x=Math.random()*cw}}
       ctx.globalAlpha=1
 
       if(g.state==='idle'){
@@ -202,11 +206,11 @@ export default function ShortcutQuizGame({ onBack }: Props) {
       }
 
       if(g.state==='playing'){
-        g.subY+=(g.targetY-g.subY)*0.14
+        g.subY+=(g.targetY-g.subY)*(1-Math.pow(0.86,dts))
         // spawn first wall or scheduled respawn after pass
         if(g.walls.length===0&&g.frameCount>30) spawnWall()
         else if(g.spawnAfter>=0&&g.frameCount>=g.spawnAfter){g.spawnAfter=-1;spawnWall()}
-        for(const w of g.walls) w.x-=WALL_SPEED
+        for(const w of g.walls) w.x-=WALL_SPEED*dts
         const sl=82, sr=82+SUB_W, st=g.subY-SUB_H/2, sb=g.subY+SUB_H/2
         for(const wall of g.walls){
           if(wall.passed) continue
@@ -264,10 +268,10 @@ export default function ShortcutQuizGame({ onBack }: Props) {
       }
 
       // particles
-      g.particles=g.particles.filter(p=>{p.x+=p.vx;p.y+=p.vy;p.vy+=0.15;p.life-=1;ctx.globalAlpha=p.life/55;ctx.fillStyle=p.color;ctx.fillRect(p.x-3,p.y-3,6,6);return p.life>0}); ctx.globalAlpha=1
+      g.particles=g.particles.filter(p=>{p.x+=p.vx*dts;p.y+=p.vy*dts;p.vy+=0.15*dts;p.life-=dts;ctx.globalAlpha=Math.max(0,p.life/55);ctx.fillStyle=p.color;ctx.fillRect(p.x-3,p.y-3,6,6);return p.life>0}); ctx.globalAlpha=1
       // submarine
       drawSub(ctx,82+SUB_W/2,g.subY,g.frameCount)
-      if(g.flashTimer>0) g.flashTimer--
+      if(g.flashTimer>0) g.flashTimer-=dts
       // end overlay
       if(g.state==='won'||g.state==='lost'){
         ctx.fillStyle='rgba(0,40,100,0.65)'; ctx.fillRect(0,0,cw,ch)
@@ -279,7 +283,7 @@ export default function ShortcutQuizGame({ onBack }: Props) {
       }
     }
 
-    function loop(){const ctx=canvas!.getContext('2d');if(ctx)draw(ctx);g.rafId=requestAnimationFrame(loop)}
+    function loop(ts: number){const ctx=canvas!.getContext('2d');if(ctx)draw(ctx,ts);g.rafId=requestAnimationFrame(loop)}
     g.rafId=requestAnimationFrame(loop)
 
     function moveUp(){if(g.state!=='playing')return;const n=Math.max(0,g.currentLane-1);if(n!==g.currentLane){g.currentLane=n;g.targetY=laneY(n,canvas!.height);playClick()}}

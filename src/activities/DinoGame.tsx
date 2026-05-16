@@ -92,6 +92,7 @@ export default function DinoGame({ onBack }: Props) {
     imagesLoaded: boolean
     nextObstacleIn: number
     animFrame: number
+    lastTs: number
   }>({
     charY: GROUND_Y,
     charVY: 0,
@@ -109,6 +110,7 @@ export default function DinoGame({ onBack }: Props) {
     imagesLoaded: false,
     nextObstacleIn: 100,
     animFrame: 0,
+    lastTs: 0,
   })
 
   // Load images
@@ -330,7 +332,11 @@ export default function DinoGame({ onBack }: Props) {
       else drawCactus(ctx, obs)
     }
 
-    const loop = () => {
+    const loop = (ts: number) => {
+      if (!s.lastTs) s.lastTs = ts
+      const dt = Math.min(ts - s.lastTs, 50)
+      s.lastTs = ts
+      const dts = dt / (1000 / 60)
       const ctx = canvas.getContext('2d')
       if (!ctx) { s.rafId = requestAnimationFrame(loop); return }
       const cw = canvas.width
@@ -361,14 +367,14 @@ export default function DinoGame({ onBack }: Props) {
       ctx.fillRect(0, GROUND_Y, cw, 4)
 
       if (s.gameState === 'playing') {
-        s.frameCount++
+        s.frameCount += dts
         s.speed = 5 + s.frameCount * 0.002
         s.score = Math.floor(s.frameCount / 10)
 
         // If crouching in air: no special physics, just crouching visual
         // Gravity
-        s.charVY += GRAVITY
-        s.charY += s.charVY
+        s.charVY += GRAVITY * dts
+        s.charY += s.charVY * dts
 
         if (s.charY >= GROUND_Y) {
           s.charY = GROUND_Y
@@ -377,14 +383,14 @@ export default function DinoGame({ onBack }: Props) {
         }
 
         // Clouds
-        for (const cloud of s.clouds) cloud.x -= 0.5
+        for (const cloud of s.clouds) cloud.x -= 0.5 * dts
         s.clouds = s.clouds.filter(c => c.x + 80 > 0)
         if (Math.random() < 0.003) {
           s.clouds.push({ x: cw + 60, y: 15 + Math.random() * 50, w: 50 + Math.random() * 50 })
         }
 
         // Obstacle spawning
-        s.nextObstacleIn--
+        s.nextObstacleIn -= dts
         if (s.nextObstacleIn <= 0) {
           const type = pickObstacleType(s.score)
           const params = obstacleParams(type)
@@ -396,7 +402,7 @@ export default function DinoGame({ onBack }: Props) {
           s.nextObstacleIn = 150 + Math.floor(Math.random() * 150)
         }
 
-        for (const obs of s.obstacles) obs.x -= s.speed
+        for (const obs of s.obstacles) obs.x -= s.speed * dts
         s.obstacles = s.obstacles.filter(o => o.x + o.w > 0)
 
         // Collision detection
