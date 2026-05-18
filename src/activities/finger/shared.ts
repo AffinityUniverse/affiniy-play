@@ -68,18 +68,22 @@ export function drawSkeleton(
   vw: number, vh: number,
   alpha = 0.4,
 ) {
-  ctx.lineWidth = 1.5
-  ctx.strokeStyle = `rgba(255,255,255,${alpha})`
+  const boneAlpha = Math.min(1, alpha + 0.45)
+  ctx.lineWidth = 3.5
+  ctx.strokeStyle = `rgba(0,230,100,${boneAlpha})`
+  ctx.shadowColor = `rgba(0,255,80,${boneAlpha * 0.6})`
+  ctx.shadowBlur = 4
   for (const [a, b] of BONES) {
     ctx.beginPath()
     ctx.moveTo(lmX(lm[a], vw), lmY(lm[a], vh))
     ctx.lineTo(lmX(lm[b], vw), lmY(lm[b], vh))
     ctx.stroke()
   }
+  ctx.shadowBlur = 0
   for (const p of lm) {
     ctx.beginPath()
-    ctx.arc(lmX(p, vw), lmY(p, vh), 3, 0, Math.PI * 2)
-    ctx.fillStyle = `rgba(255,255,255,${alpha + 0.3})`
+    ctx.arc(lmX(p, vw), lmY(p, vh), 4.5, 0, Math.PI * 2)
+    ctx.fillStyle = `rgba(0,255,100,${Math.min(1, alpha + 0.55)})`
     ctx.fill()
   }
 }
