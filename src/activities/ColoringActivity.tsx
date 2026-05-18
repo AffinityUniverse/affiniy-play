@@ -1,6 +1,7 @@
 import { useState, useRef, useEffect, useCallback } from 'react'
 import Layout from '../components/Layout'
 import Button from '../components/Button'
+import CameraDrawingMode from './CameraDrawingMode'
 
 interface Props { onBack: () => void }
 
@@ -144,7 +145,7 @@ function hexToRgb(hex: string): [number, number, number] {
 }
 
 // ────────────────────────── Component ──────────────────────────
-type Mode = 'svg' | 'canvas'
+type Mode = 'svg' | 'canvas' | 'camera'
 
 export default function ColoringActivity({ onBack }: Props) {
   const [mode, setMode] = useState<Mode>('svg')
@@ -275,29 +276,21 @@ export default function ColoringActivity({ onBack }: Props) {
       <div style={{ maxWidth: 480, margin: '0 auto', padding: '8px 14px 24px', width: '100%', display: 'flex', flexDirection: 'column', gap: 12 }}>
 
         {/* Mode toggle */}
-        <div style={{ display: 'flex', gap: 8, background: '#F0F4FF', borderRadius: 12, padding: 4 }}>
-          <button
-            onClick={switchToSvg}
-            style={{
+        <div style={{ display: 'flex', gap: 6, background: '#F0F4FF', borderRadius: 12, padding: 4 }}>
+          {([
+            { id: 'svg',    label: '기본 그림', onClick: switchToSvg },
+            { id: 'canvas', label: '사진 업로드', onClick: switchToCanvas },
+            { id: 'camera', label: '카메라', onClick: () => setMode('camera') },
+          ] as const).map(({ id, label, onClick }) => (
+            <button key={id} onClick={onClick} style={{
               flex: 1, padding: '8px 0', borderRadius: 9, border: 'none', cursor: 'pointer',
-              background: mode === 'svg' ? '#4D72FB' : 'transparent',
-              color: mode === 'svg' ? '#fff' : '#666',
+              background: mode === id ? '#4D72FB' : 'transparent',
+              color: mode === id ? '#fff' : '#666',
               fontWeight: 700, fontSize: 13, transition: 'all 0.15s',
-            }}
-          >
-            기본 그림
-          </button>
-          <button
-            onClick={switchToCanvas}
-            style={{
-              flex: 1, padding: '8px 0', borderRadius: 9, border: 'none', cursor: 'pointer',
-              background: mode === 'canvas' ? '#4D72FB' : 'transparent',
-              color: mode === 'canvas' ? '#fff' : '#666',
-              fontWeight: 700, fontSize: 13, transition: 'all 0.15s',
-            }}
-          >
-            사진 업로드
-          </button>
+            }}>
+              {label}
+            </button>
+          ))}
         </div>
 
         {/* ── SVG mode ── */}
@@ -448,42 +441,49 @@ export default function ColoringActivity({ onBack }: Props) {
           onChange={handleInputChange}
         />
 
-        {/* Palette */}
-        <div style={{ background: '#fff', borderRadius: 16, padding: '12px 14px 10px', border: '2px solid #E8ECF4' }}>
-          <div style={{ display: 'flex', gap: 7, flexWrap: 'wrap', justifyContent: 'center' }}>
-            {PALETTE.map(hex => (
-              <button key={hex} onClick={() => setSel(hex)} style={{
-                width: 32, height: 32, borderRadius: '50%', background: hex,
-                border: sel === hex ? '3px solid #1A1A2E' : '3px solid #E8ECF4',
-                outline: sel === hex ? '2px solid #fff' : 'none',
-                cursor: 'pointer',
-                transform: sel === hex ? 'scale(1.22)' : 'scale(1)',
-                transition: 'transform 0.15s ease, border 0.15s ease',
-                boxShadow: '0 2px 6px rgba(0,0,0,0.12)',
-              }} />
-            ))}
-          </div>
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: 10, paddingTop: 10, borderTop: '1px solid #F0F0F0' }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-              <div style={{ width: 26, height: 26, borderRadius: '50%', background: sel, border: '2px solid #E8ECF4', boxShadow: '0 1px 4px rgba(0,0,0,0.1)' }} />
-              <span style={{ fontSize: 13, fontWeight: 600, color: '#aaa' }}>선택된 색</span>
+        {/* ── Camera mode ── */}
+        {mode === 'camera' && (
+          <CameraDrawingMode active={mode === 'camera'} />
+        )}
+
+        {/* Palette — hidden in camera mode (camera has its own palette) */}
+        {mode !== 'camera' && (
+          <div style={{ background: '#fff', borderRadius: 16, padding: '12px 14px 10px', border: '2px solid #E8ECF4' }}>
+            <div style={{ display: 'flex', gap: 7, flexWrap: 'wrap', justifyContent: 'center' }}>
+              {PALETTE.map(hex => (
+                <button key={hex} onClick={() => setSel(hex)} style={{
+                  width: 32, height: 32, borderRadius: '50%', background: hex,
+                  border: sel === hex ? '3px solid #1A1A2E' : '3px solid #E8ECF4',
+                  outline: sel === hex ? '2px solid #fff' : 'none',
+                  cursor: 'pointer',
+                  transform: sel === hex ? 'scale(1.22)' : 'scale(1)',
+                  transition: 'transform 0.15s ease, border 0.15s ease',
+                  boxShadow: '0 2px 6px rgba(0,0,0,0.12)',
+                }} />
+              ))}
             </div>
-            <div style={{ display: 'flex', gap: 8 }}>
-              {mode === 'svg' && (
-                <Button onClick={() => setColors({ ...DEFAULTS })} size="sm" variant="outline">초기화</Button>
-              )}
-              {mode === 'canvas' && canvasReady && (
-                <>
-                  <Button onClick={handleCanvasReset} size="sm" variant="outline">색 지우기</Button>
-                  <Button onClick={() => { pendingEdgeUrl.current = null; pendingSize.current = null; setCanvasReady(false); setTimeout(() => fileInputRef.current?.click(), 50) }} size="sm" variant="outline">새 사진</Button>
-                </>
-              )}
-              {mode === 'canvas' && !canvasReady && (
-                <Button onClick={() => fileInputRef.current?.click()} size="sm">사진 선택</Button>
-              )}
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: 10, paddingTop: 10, borderTop: '1px solid #F0F0F0' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                <div style={{ width: 26, height: 26, borderRadius: '50%', background: sel, border: '2px solid #E8ECF4', boxShadow: '0 1px 4px rgba(0,0,0,0.1)' }} />
+                <span style={{ fontSize: 13, fontWeight: 600, color: '#aaa' }}>선택된 색</span>
+              </div>
+              <div style={{ display: 'flex', gap: 8 }}>
+                {mode === 'svg' && (
+                  <Button onClick={() => setColors({ ...DEFAULTS })} size="sm" variant="outline">초기화</Button>
+                )}
+                {mode === 'canvas' && canvasReady && (
+                  <>
+                    <Button onClick={handleCanvasReset} size="sm" variant="outline">색 지우기</Button>
+                    <Button onClick={() => { pendingEdgeUrl.current = null; pendingSize.current = null; setCanvasReady(false); setTimeout(() => fileInputRef.current?.click(), 50) }} size="sm" variant="outline">새 사진</Button>
+                  </>
+                )}
+                {mode === 'canvas' && !canvasReady && (
+                  <Button onClick={() => fileInputRef.current?.click()} size="sm">사진 선택</Button>
+                )}
+              </div>
             </div>
           </div>
-        </div>
+        )}
       </div>
     </Layout>
   )
