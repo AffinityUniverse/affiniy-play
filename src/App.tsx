@@ -17,6 +17,7 @@ import ShortcutQuizGame from './activities/ShortcutQuizGame'
 import WhackAMoleGame from './activities/WhackAMoleGame'
 import TicTacToeGame from './activities/TicTacToeGame'
 import SuikaGame from './activities/SuikaGame'
+import FingerPlayHub from './activities/FingerPlayHub'
 
 export default function App() {
   const [current, setCurrent] = useState<ActivityId | null>(null)
@@ -39,5 +40,6 @@ export default function App() {
     case 'whackmole':    return <WhackAMoleGame onBack={goHome} />
     case 'tictactoe':   return <TicTacToeGame onBack={goHome} />
     case 'suika':       return <SuikaGame onBack={goHome} />
+    case 'fingerplay':  return <FingerPlayHub onBack={goHome} />
   }
 }

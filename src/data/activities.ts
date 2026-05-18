@@ -2,7 +2,8 @@ export type ActivityId =
   | 'memory' | 'puzzle' | 'coloring' | 'shapematch'
   | 'hidden' | 'designquiz' | 'music' | 'balloon' | 'numbermemory'
   | 'minesweeper' | 'brickbreaker' | 'dinogame'
-  | 'shortcutquiz' | 'whackmole' | 'tictactoe' | 'suika';
+  | 'shortcutquiz' | 'whackmole' | 'tictactoe' | 'suika'
+  | 'fingerplay';
 
 export interface ActivityInfo {
   id: ActivityId;
@@ -31,4 +32,5 @@ export const activities: ActivityInfo[] = [
   { id: 'whackmole',    title: '두더지 잡기',    tagline: '두더지를 잡아봐요!',          image: 'slice/남2.png',  bg: '#F0E8D5', accent: '#8B5E3C' },
   { id: 'tictactoe',    title: '틱택토',          tagline: '컴퓨터와 대결해봐요!',        image: 'slice/여1.png',  bg: '#EEF3FF', accent: '#4D72FB' },
   { id: 'suika',        title: '수박 게임',        tagline: '과일을 합쳐 수박을 만들어요!', image: 'slice/여2.png',  bg: '#FFE9D5', accent: '#FF8C42' },
+  { id: 'fingerplay',   title: '손 인식 게임',     tagline: '손가락으로 게임해봐요!',        image: 'slice/여4.png',  bg: '#F0E4FF', accent: '#7C3AED' },
 ];
